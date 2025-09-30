@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!--
+    Redes Home Decor — single-file prototype
+    Location: Banguluru
+    Phone: +91 96766 59153
+    Email: info@redescreation.in
+    Domain: www.redescreation.in
+
+    This file uses Tailwind CSS from CDN for rapid prototyping.
+    It includes many animations and interactive features:
+      - Responsive header and mobile slide-out
+      - Hero with parallax-like motion
+      - Animated product card
+      - Collection grid with hover effects
+      - Portfolio with filter, hover captions, and lightbox
+      - Testimonials carousel
+      - Pricing cards and badges
+      - Blog listing
+      - FAQ accordion
+      - Contact form and embedded map
+      - Footer and accessibility enhancements
+  -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Redes Home Decor — Premium Home Furnishings | Banguluru</title>
+  <meta name="description" content="Redes Home Decor in Banguluru — bespoke furniture and home decor. Explore curated collections, portfolios, pricing, and get in touch." />
+  <meta name="theme-color" content="#d46b6b" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Tailwind CSS CDN (for prototype) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ============================
+       Custom utility, theme & animations
+       ============================ */
+
+    /* requested utility */
+    .max-w-6x1 { max-width: 1200px; }
+
+    :root{
+      --accent: #d46b6b; /* light red theme */
+      --accent-600: #c75b5b;
+      --muted: #f6f4f4;
+      --shadow: 0 10px 30px rgba(16,24,40,0.06);
+    }
+
+    /* Helper resets for prototype */
+    html,body{ height:100%; }
+    body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+
+    /* Micro-interaction focus ring */
+    :focus{
+      outline: 3px solid rgba(212,107,107,0.18);
+      outline-offset: 2px;
+    }
+
+    /* Basic animation helpers */
+    .will-change-transform { will-change: transform, opacity; }
+    .fade-up{ transform: translateY(10px); opacity:0; transition:all .6s cubic-bezier(.2,.9,.2,1); }
+    .fade-up.in-view{ transform: translateY(0); opacity:1; }
+    .slide-left{ transform: translateX(16px); opacity:0; transition:all .6s cubic-bezier(.2,.9,.2,1); }
+    .slide-left.in-view{ transform: translateX(0); opacity:1; }
+
+    /* Hero background overlay gradient for readability */
+    .hero-overlay {
+      background: linear-gradient(90deg, rgba(255,255,255,0.96) 50%, rgba(255,255,255,0.8) 100%);
+    }
+
+    /* Decorative band under hero headline */
+    .headline-accent {
+      display:inline-block;
+      height:6px;
+      width:90px;
+      background: linear-gradient(90deg,var(--accent), rgba(200,100,100,0.6));
+      border-radius:8px;
+      vertical-align:middle;
+      margin-left:8px;
+    }
+
+    /* Fancy button */
+    .btn-accent{
+      background: linear-gradient(90deg,var(--accent),var(--accent-600));
+      color:white;
+      border: none;
+      box-shadow: 0 6px 18px rgba(215,103,103,0.18);
+    }
+
+    /* Smooth image reveal */
+    .reveal-img { transform: scale(1.02); transition: transform .7s ease, opacity .7s ease; opacity:0; }
+    .reveal-img.in-view { transform: scale(1); opacity:1; }
+
+    /* Simple carousel controls */
+    .carousel-dot { width:10px; height:10px; border-radius:9999px; display:inline-block; margin:0 6px; background:#ddd; }
+    .carousel-dot.active { background:var(--accent); transform:scale(1.1); }
+
+    /* Lightbox overlay */
+    .lightbox-bg {
+      position: fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      background: rgba(0,0,0,0.7); z-index:1200; opacity:0; pointer-events:none; transition:opacity .25s;
+    }
+    .lightbox-bg.open { opacity:1; pointer-events:auto; }
+    .lightbox-content { max-width:90%; max-height:90%; border-radius:8px; overflow:hidden; }
+
+    /* Testimonials carousel tweaks */
+    .testi-card { transform: perspective(800px) rotateY(2deg); transition:transform .6s cubic-bezier(.2,.9,.2,1), box-shadow .3s; }
+    .testi-card:hover { transform: perspective(800px) rotateY(0deg) translateY(-6px); box-shadow: 0 14px 40px rgba(0,0,0,0.06); }
+
+    /* Pricing highlight badge */
+    .ribbon {
+      position: absolute; top:-10px; right:-10px;
+      background:var(--accent); color:white; padding:.35rem .6rem; border-radius:8px;
+      font-size:.75rem; box-shadow: 0 6px 18px rgba(212,107,107,0.18);
+    }
+
+    /* Decorative divider */
+    .fancy-divider {
+      height:6px; border-radius:8px; background: linear-gradient(90deg,#fff 0%, rgba(212,107,107,0.1) 50%, rgba(212,107,107,0.04) 100%);
+    }
+
+    /* Accessibility: visually hidden */
+    .sr-only { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; white-space:nowrap; }
+
+    /* Tailwind override: small breakpoint tweaks could be placed here as needed */
+    @media (max-width:640px){
+      .headline-accent { display:none; }
+    }
+
+    /* Keyframe animations (used sparingly) */
+    @keyframes floaty {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+    .floaty { animation: floaty 6s ease-in-out infinite; }
+
+    /* Make iframe responsive in map container */
+    .map-embed { width:100%; height:100%; border:0; }
+  </style>
+</head>
+<body class="antialiased text-gray-800 bg-white">
+
+  <!-- ============================================================
+       HEADER / NAV
+       Semantic header with desktop and mobile behaviors
+       ============================================================ -->
+  <header class="border-b" role="banner">
+    <div class="mx-auto max-w-6x1 px-6 py-4 flex items-center justify-between">
+      <!-- BRAND -->
+      <a href="index.html" class="flex items-center gap-3" aria-label="Redes Home Decor home">
+        <!-- SVG mark -->
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <path d="M4 12c0-4 4-8 8-8s8 4 8 8-4 8-8 8S4 16 4 12z" fill="var(--accent)"/>
+          <path d="M8 12c0-2.2 2.7-4 6-4" stroke="#fff" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+         <div class="">
+          <div class="text-2xl font-extrabold leading-none">Redes</div>
+          <div class="text-xs text-gray-500 -mt-1">Home Decor</div>
+        </div>
+      </a>
+
+      <!-- NAV (desktop) -->
+      <nav class="hidden md:flex items-center gap-8" role="navigation" aria-label="Primary">
+        <a href="index.html" class="hover:text-gray-900">Home</a>
+        <a href="product.html" class="hover:text-gray-900">Shop</a>
+        <a href="projects.html" class="hover:text-gray-900">Portfolio</a>
+        <a href="about.html" class="hover:text-gray-900">About</a>
+        <a href="blog.html" class="hover:text-gray-900">Blog</a>
+        <a href="contact.html" class="hover:text-gray-900">Contact</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-4">
+        <button aria-label="search" class="hidden md:inline-flex items-center px-3 py-2 rounded-lg hover:bg-gray-100">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M21 21l-4.35-4.35" stroke="#333" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="11" cy="11" r="6" stroke="#333" stroke-width="1.6"/>
+          </svg>
+        </button>
+
+        <a href="contact.html" class="hidden md:inline-block px-4 py-2 border rounded-md text-sm" style="border-color:var(--accent); color:var(--accent)">Get Quote</a>
+
+        <!-- Mobile hamburger -->
+        <button id="menuBtn" class="md:hidden p-2" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M3 6h18M3 12h18M3 18h18" stroke="#333" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE SLIDE-OUT MENU -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black/40 z-40 hidden" aria-hidden="true">
+      <div class="absolute right-0 top-0 w-80 h-full bg-white p-6 shadow-lg transform transition-transform duration-300 ease" role="dialog" aria-modal="true" aria-label="Mobile menu">
+        <button id="closeMenu" class="mb-6 p-2 inline-flex text-gray-600" aria-label="Close menu">✕</button>
+        <nav class="flex flex-col gap-4 text-lg">
+          <a href="index.html" class="py-2 border-b">Home</a>
+          <a href="product.html" class="py-2 border-b">Shop</a>
+          <a href="projects.html" class="py-2 border-b">Portfolio</a>
+          <a href="about.html" class="py-2 border-b">About</a>
+          <a href="blog.html" class="py-2 border-b">Blog</a>
+          <a href="contact.html" class="py-2 border-b">Contact</a>
+        </nav>
+
+        <div class="mt-6 border-t pt-4 flex items-center gap-4 text-sm">
+          <a href="#" aria-label="facebook" class="hover:text-gray-700"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="instagram" class="hover:text-gray-700"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="pinterest" class="hover:text-gray-700"><i class="fa-brands fa-pinterest-p"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+ 
+  <!-- ============================================================
+       HERO
+       Full-width, two-column style (text + product card)
+       - background image auto-scaled
+       - animated headline and CTA
+       ============================================================ -->
+  <main>
+    <section class="relative overflow-hidden" aria-labelledby="hero-heading">
+      <!-- background -->
+      <div class="absolute inset-0 bg-fixed bg-center bg-cover" style="background-image:url('https://tse4.mm.bing.net/th/id/OIP.Yg9FGwAsNMCmh3tsVoHwjQHaFE?rs=1&pid=ImgDetMain&o=7&rm=3'); filter: saturate(0.95) contrast(1.02) brightness(0.98);"></div>
+
+      <!-- overlay for improved text contrast on smaller screens -->
+      <div class="absolute inset-0 hero-overlay"></div>
+
+      <!-- content -->
+      <div class="relative mx-auto max-w-6x1 px-6 py-20 md:py-28 flex flex-col md:flex-row items-center gap-8">
+        <!-- Left: Headline -->
+        <div class="md:w-1/2 text-left text-gray-900">
+          <div class="inline-flex items-center gap-3">
+            <span class="inline-block bg-white/80 text-sm px-3 py-1 rounded-full text-gray-700">2025 — New Arrivals</span>
+            <span class="headline-accent"></span>
+          </div>
+
+          <h1 id="hero-heading" class="mt-6 text-4xl md:text-5xl font-extrabold leading-tight">Elevate your space — handcrafted furniture & decor
+            <span class="block mt-2 text-xl text-gray-600 font-medium">Timeless pieces, responsibly made in Banguluru.</span>
+          </h1>
+
+          <p class="mt-6 max-w-xl text-gray-600">Discover curated pieces designed for modern living. Sustainably sourced, exquisitely made — transform your home with Redes.</p>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <a href="#contact" class="btn-accent inline-flex items-center gap-3 px-6 py-3 rounded-md font-semibold shadow will-change-transform transform hover:-translate-y-1 focus:translate-y-0" role="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 5v14" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M5 12h14" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+              Get Started
+            </a>
+            <a href="#portfolio" class="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-gray-200 text-gray-700" role="link">Explore Collection →</a>
+          </div>
+
+          <!-- micro copy -->
+          <div class="mt-6 text-sm text-gray-500 flex gap-4 items-center">
+            <div class="flex items-center gap-2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 2v6" stroke="#d46b6b" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <span>Free design consultation</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 2v6" stroke="#666" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <span>2 - year warranty</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Product card -->
+        <div class="md:w-1/2 flex justify-center">
+          <div class="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg transform floaty will-change-transform">
+            <div class="relative">
+              <img src="https://tse4.mm.bing.net/th/id/OIP.Yg9FGwAsNMCmh3tsVoHwjQHaFE?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Featured armchair - Redes" class="w-full rounded-lg object-cover reveal-img" />
+              <div class="ribbon">-5% OFF</div>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between">
+              <div>
+                <div class="text-sm text-green-700 font-semibold">₹8,800</div>
+                <div class="font-semibold text-lg">Aurora Flexible Chair</div>
+                <div class="text-xs text-gray-500 mt-1">Limited edition — small-batch production</div>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <button class="px-3 py-2 rounded bg-[var(--accent)] text-white text-sm" aria-label="Buy now">Buy Now</button>
+                <button class="px-3 py-2 rounded border text-sm" aria-label="View details">View</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- /hero content -->
+    </section>
+
+    <!-- pretty divider -->
+    <div class="fancy-divider"></div>
+
+    <!-- ============================================================
+         FEATURED SERVICES / PRODUCTS (Collections)
+         Grid replicating reference layout with items, counts & links
+         ============================================================ -->
+    <section id="services" class="py-16">
+      <div class="mx-auto max-w-6x1 px-6">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">Our Collections</h2>
+          <p class="text-gray-600 mt-2">Explore our curated selection of premium products, tailored to suit every need and taste.</p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <!-- card 1 -->
+          <article class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-2 will-change-transform" role="article" aria-labelledby="col1">
+            <div class="h-40 bg-gray-100 rounded-lg flex items-center justify-center">
+              <img src="https://i.pinimg.com/originals/fe/06/29/fe0629b352f50d91c08a663f8841ed14.jpg" alt="Seat tools collection" class="object-contain h-32 reveal-img" />
+            </div>
+            <h3 id="col1" class="mt-4 font-semibold">New Seat Tools</h3>
+            <p class="text-sm text-gray-500 mt-2">Comfort-first seating — chairs, stools and more.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-sm text-gray-400">5 items</span>
+              <a href="#portfolio" class="text-sm font-medium" style="color:var(--accent)">See items →</a>
+            </div>
+          </article>
+
+          <!-- card 2 -->
+          <article class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-2 will-change-transform" role="article" aria-labelledby="col2">
+            <div class="h-40 bg-gray-100 rounded-lg flex items-center justify-center">
+              <img src="https://i.pinimg.com/originals/fe/06/29/fe0629b352f50d91c08a663f8841ed14.jpg" alt="Lighting" class="object-contain h-32 reveal-img" />
+            </div>
+            <h3 id="col2" class="mt-4 font-semibold">Lighting & Accents</h3>
+            <p class="text-sm text-gray-500 mt-2">Statement lights and subtle accents to finish your rooms.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-sm text-gray-400">13 items</span>
+              <a href="#portfolio" class="text-sm font-medium" style="color:var(--accent)">See items →</a>
+            </div>
+          </article>
+
+          <!-- card 3 -->
+          <article class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition transform hover:-translate-y-2 will-change-transform" role="article" aria-labelledby="col3">
+            <div class="h-40 bg-gray-100 rounded-lg flex items-center justify-center">
+              <img src="https://i.pinimg.com/originals/fe/06/29/fe0629b352f50d91c08a663f8841ed14.jpg" alt="Lighting" class="object-contain h-32 reveal-img" />
+            </div>
+            <h3 id="col3" class="mt-4 font-semibold">Soft Furnishings</h3>
+            <p class="text-sm text-gray-500 mt-2">Rugs, cushions and textiles crafted with care.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-sm text-gray-400">23 items</span>
+              <a href="#portfolio" class="text-sm font-medium" style="color:var(--accent)">See items →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ABOUT US
+         Story, values and founder profile
+         ============================================================ -->
+    <section id="about" class="py-16 bg-gradient-to-b from-white to-[var(--muted)]">
+      <div class="mx-auto max-w-6x1 px-6 grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-3xl font-bold">About Redes</h2>
+          <p class="mt-4 text-gray-600">Redes Home Decor started in Banguluru with a single mission: craft beautiful, functional furniture that lasts. Our team focuses on sustainability, local partnerships, and timeless design.</p>
+
+          <ul class="mt-4 space-y-2 text-sm text-gray-700">
+            <li>• Ethically sourced materials</li>
+            <li>• Customizable design options</li>
+            <li>• 2-year warranty on select items</li>
+          </ul>
+
+          <div class="mt-6 flex items-center gap-4">
+            <a href="#portfolio" class="px-4 py-2 border rounded-md text-sm" style="border-color:var(--accent); color:var(--accent)">View Projects</a>
+            <a href="#contact" class="px-4 py-2 rounded-md text-sm bg-white border">Contact Us</a>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="font-semibold">Founder — A. Redes</h3>
+          <p class="text-sm text-gray-600 mt-2">"We design with people at the center. Each product tells a story — about craft, care and community."</p>
+
+          <div class="mt-4 flex gap-3 items-center">
+            <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=edb4b9a1a7fd2f4f68c7d9c13eac4c95" alt="Founder portrait" class="w-20 h-20 rounded-full object-cover" />
+            <div>
+              <div class="font-semibold">A. Redes</div>
+              <div class="text-sm text-gray-500">Founder & Creative Director</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PORTFOLIO / CASE STUDIES
+         Filter buttons + grid + lightbox
+         ============================================================ -->
+    <section id="portfolio" class="py-16">
+      <div class="mx-auto max-w-6x1 px-6">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">Projects & Case Studies</h2>
+          <p class="text-gray-600 mt-2">Filter by space or style to quickly find relevant work.</p>
+        </div>
+
+        <div class="mt-6 flex justify-center gap-3">
+          <button class="px-4 py-2 rounded-md border" data-filter="all">All</button>
+          <button class="px-4 py-2 rounded-md border" data-filter="living">Living</button>
+          <button class="px-4 py-2 rounded-md border" data-filter="dining">Dining</button>
+          <button class="px-4 py-2 rounded-md border" data-filter="lighting">Lighting</button>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6" id="portfolioGrid">
+          <figure class="group bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transform hover:-translate-y-1 will-change-transform" data-cat="living">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1e56f46d3b2c2b05f2a86d9c3e8b9b9a" alt="Living room project" class="w-full h-56 object-cover cursor-pointer portfolio-thumb" data-title="Cozy Modern Living" data-desc="Full room setup for a family apartment." />
+            <figcaption class="p-4">
+              <h4 class="font-semibold">Cozy Modern Living</h4>
+              <p class="text-sm text-gray-500 mt-1">Full room setup for a family apartment.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="group bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transform hover:-translate-y-1 will-change-transform" data-cat="dining">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1e56f46d3b2c2b05f2a86d9c3e8b9b9a" alt="Dining room" class="w-full h-56 object-cover cursor-pointer portfolio-thumb" data-title="Scandinavian Dining" data-desc="Minimal and warm dining setup." />
+            <figcaption class="p-4">
+              <h4 class="font-semibold">Scandinavian Dining</h4>
+              <p class="text-sm text-gray-500 mt-1">Minimal and warm dining setup.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="group bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transform hover:-translate-y-1 will-change-transform" data-cat="lighting">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1e56f46d3b2c2b05f2a86d9c3e8b9b9a" alt="Lighting project" class="w-full h-56 object-cover cursor-pointer portfolio-thumb" data-title="Gallery Lighting" data-desc="Custom fixtures for boutique stores." />
+            <figcaption class="p-4">
+              <h4 class="font-semibold">Gallery Lighting</h4>
+              <p class="text-sm text-gray-500 mt-1">Custom fixtures for boutique stores.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox markup (hidden until opened) -->
+    <div id="lightbox" class="lightbox-bg" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="lightbox-content bg-white rounded-lg overflow-hidden shadow-lg">
+        <div class="relative">
+          <button id="lbClose" class="absolute top-4 right-4 bg-white rounded-full p-2 shadow" aria-label="Close image">✕</button>
+          <img id="lbImage" src="" alt="" class="w-full h-auto object-contain" />
+          <div class="p-4">
+            <h3 id="lbTitle" class="font-semibold"></h3>
+            <p id="lbDesc" class="text-sm text-gray-600 mt-2"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         TESTIMONIALS (carousel)
+         ============================================================ -->
+    <section id="testimonials" class="py-16 bg-[var(--muted)]">
+      <div class="mx-auto max-w-6x1 px-6">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">What our clients say</h2>
+        </div>
+
+        <div class="mt-6 relative">
+          <div class="overflow-hidden">
+            <div id="testiTrack" class="flex gap-6 transition-transform duration-600">
+              <!-- cards -->
+              <blockquote class="bg-white p-6 rounded-lg shadow testi-card min-w-full">
+                <p>"Redes transformed our flat — every piece feels custom and comfortable."</p>
+                <footer class="mt-4 text-sm text-gray-500">— S. Rao, Bangalore</footer>
+              </blockquote>
+
+              <blockquote class="bg-white p-6 rounded-lg shadow testi-card min-w-full">
+                <p>"Great communication and fast delivery. Highly recommend."</p>
+                <footer class="mt-4 text-sm text-gray-500">— Priya M.</footer>
+              </blockquote>
+
+              <blockquote class="bg-white p-6 rounded-lg shadow testi-card min-w-full">
+                <p>"Attention to detail is exceptional. The rug choices are lovely."</p>
+                <footer class="mt-4 text-sm text-gray-500">— Ankit D.</footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <!-- controls -->
+          <div class="mt-4 flex items-center justify-center gap-2">
+            <button id="prevTesti" aria-label="Previous testimonial" class="p-2 rounded bg-white shadow">◀</button>
+            <div id="testiDots" class="flex items-center"></div>
+            <button id="nextTesti" aria-label="Next testimonial" class="p-2 rounded bg-white shadow">▶</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PRICING / PACKAGES
+         ============================================================ -->
+    <section id="pricing" class="py-16">
+      <div class="mx-auto max-w-6x1 px-6">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">Pricing & Packages</h2>
+          <p class="text-gray-600 mt-2">Plans designed for homeowners and trade professionals.</p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-6 border rounded-lg text-center relative">
+            <div class="text-sm text-gray-500">Starter</div>
+            <div class="text-3xl font-bold mt-2">₹9,999</div>
+            <p class="text-sm text-gray-500 mt-2">Basic consultation & design mockup</p>
+            <a href="#contact" class="mt-4 inline-block px-4 py-2 rounded bg-white border" style="border-color:var(--accent); color:var(--accent)">Select</a>
+          </div>
+
+          <div class="p-6 border rounded-lg text-center relative shadow-lg">
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+              <div class="bg-white px-4 py-1 rounded-full text-sm text-gray-700 shadow">Most Popular</div>
+            </div>
+            <div class="text-sm text-gray-500">Most Popular</div>
+            <div class="text-3xl font-bold mt-7">₹24,999</div>
+            <p class="text-sm text-gray-500 mt-2">Design + 3D mockups + sourcing</p>
+            <a href="#contact" class="mt-4 inline-block px-4 py-2 rounded bg-[var(--accent)] text-white">Select</a>
+          </div>
+
+          <div class="p-6 border rounded-lg text-center relative">
+            <div class="text-sm text-gray-500">Trade</div>
+            <div class="text-3xl font-bold mt-2">Contact Us</div>
+            <p class="text-sm text-gray-500 mt-2">Bulk orders & long-term partnerships</p>
+            <a href="#contact" class="mt-4 inline-block px-4 py-2 rounded bg-white border" style="border-color:var(--accent); color:var(--accent)">Contact</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         BLOG / NEWS
+         listing with excerpts
+         ============================================================ -->
+    <section id="blog" class="py-16 bg-[var(--muted)]">
+      <div class="mx-auto max-w-6x1 px-6">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">From our Blog</h2>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <article class="bg-white rounded-lg overflow-hidden shadow">
+            <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7f2a2b9e3b1c4d6a1f3a8b2c4e6d7c8f" alt="blog 1" class="w-full h-44 object-cover" />
+            <div class="p-4">
+              <h3 class="font-semibold">How to choose the right sofa</h3>
+              <p class="mt-2 text-sm text-gray-500">A practical guide to scale, fabric and comfort.</p>
+              <div class="mt-4 text-sm"><a href="#" style="color:var(--accent)">Read more →</a></div>
+            </div>
+          </article>
+
+          <article class="bg-white rounded-lg overflow-hidden shadow">
+            <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7f2a2b9e3b1c4d6a1f3a8b2c4e6d7c8f" alt="blog 2" class="w-full h-44 object-cover" />
+            <div class="p-4">
+              <h3 class="font-semibold">Sustainable materials we love</h3>
+              <p class="mt-2 text-sm text-gray-500">Sources and certifications explained.</p>
+              <div class="mt-4 text-sm"><a href="#" style="color:var(--accent)">Read more →</a></div>
+            </div>
+          </article>
+
+          <article class="bg-white rounded-lg overflow-hidden shadow">
+            <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7f2a2b9e3b1c4d6a1f3a8b2c4e6d7c8f" alt="blog 3" class="w-full h-44 object-cover" />
+            <div class="p-4">
+              <h3 class="font-semibold">Small spaces, big ideas</h3>
+              <p class="mt-2 text-sm text-gray-500">Multipurpose furniture solutions.</p>
+              <div class="mt-4 text-sm"><a href="#" style="color:var(--accent)">Read more →</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ
+         accessible accordion (details/summary fallback)
+         ============================================================ -->
+    <section id="faq" class="py-16">
+      <div class="mx-auto max-w-6x1 px-6">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold">Frequently asked questions</h2>
+        </div>
+
+        <div class="mt-8 max-w-3xl mx-auto space-y-4">
+          <details class="p-4 border rounded">
+            <summary class="font-semibold">What is your lead time?</summary>
+            <p class="mt-2 text-sm text-gray-600">Lead times vary by product — typically 2–6 weeks depending on customization.</p>
+          </details>
+
+          <details class="p-4 border rounded">
+            <summary class="font-semibold">Do you ship outside Banguluru?</summary>
+            <p class="mt-2 text-sm text-gray-600">Yes — national shipping and select international destinations available.</p>
+          </details>
+
+          <details class="p-4 border rounded">
+            <summary class="font-semibold">Do you offer custom sizing?</summary>
+            <p class="mt-2 text-sm text-gray-600">We offer custom sizing and finishes on many products. Contact us for a quote.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT / GET IN TOUCH
+         Contact form + map embed
+         ============================================================ -->
+    <section id="contact" class="py-16 bg-[var(--muted)]">
+      <div class="mx-auto max-w-6x1 px-6 grid md:grid-cols-2 gap-8">
+        <div>
+          <h2 class="text-3xl font-bold">Get in touch</h2>
+          <p class="mt-2 text-gray-600">Visit us or send a message — we reply within 48 hours.</p>
+
+          <div class="mt-6 space-y-3 text-sm">
+            <div><strong>Address:</strong> Banguluru</div>
+            <div><strong>Phone:</strong> <a href="tel:+919676659153">+91 96766 59153</a></div>
+            <div><strong>Email:</strong> <a href="mailto:info@redescreation.in">info@redescreation.in</a></div>
+            <div><strong>Website:</strong> <a href="https://www.redescreation.in">www.redescreation.in</a></div>
+          </div>
+
+          <!-- Map embed (static placeholder) -->
+          <div class="mt-6 bg-white rounded overflow-hidden shadow">
+            <iframe title="map" src="https://www.google.com/maps?q=bangalore&output=embed" class="map-embed" loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <div>
+          <form id="contactForm" class="bg-white p-6 rounded-lg shadow" aria-label="Contact form">
+            <div class="grid grid-cols-1 gap-3">
+              <label class="text-sm">Name <input id="name" required class="mt-1 w-full border rounded px-3 py-2" name="name" /></label>
+              <label class="text-sm">Email <input id="email" type="email" required class="mt-1 w-full border rounded px-3 py-2" name="email" /></label>
+              <label class="text-sm">Phone <input id="phone" class="mt-1 w-full border rounded px-3 py-2" name="phone" /></label>
+              <label class="text-sm">Message <textarea id="message" class="mt-1 w-full border rounded px-3 py-2" rows="5" name="message"></textarea></label>
+
+              <div class="flex items-center gap-3">
+                <button type="submit" class="mt-2 px-4 py-2 rounded bg-[var(--accent)] text-white">Send Message</button>
+                <div id="formStatus" class="text-sm text-gray-500"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t">
+    <div class="max-w-6x1 mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div>
+        <h4 class="font-semibold">Redes Home Decor</h4>
+        <p class="text-sm text-gray-600 mt-2">Crafting interiors & furniture with care. Based in Banguluru.</p>
+      </div>
+
+      <div>
+        <h4 class="font-semibold">Explore</h4>
+        <ul class="mt-2 text-sm space-y-2 text-gray-600">
+          <li><a href="projects.html" class="hover:text-gray-900">Projects</a></li>
+          <li><a href="products.html" class="hover:text-gray-900">Products</a></li>
+          <li><a href="blog.html" class="hover:text-gray-900">Blog</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold">Company</h4>
+        <ul class="mt-2 text-sm space-y-2 text-gray-600">
+          <li><a href="about.html" class="hover:text-gray-900">About</a></li>
+          <li><a href="careers.html" class="hover:text-gray-900">Careers</a></li>
+          <li><a href="contact.html" class="hover:text-gray-900">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold">Contact</h4>
+        <div class="text-sm text-gray-600 mt-2">
+          <div>Banguluru, India</div>
+          <div class="mt-1">Phone: <a href="tel:+919676659153" class="text-[var(--accent)]">+91 96766 59153</a></div>
+          <div class="mt-1">Email: <a href="mailto:info@redescreation.in" class="text-[var(--accent)]">info@redescreation.in</a></div>
+        </div>
+        <div class="mt-4 flex gap-3 text-sm">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+      </div> 
+    </div>
+
+    <div class="border-t">
+      <div class="max-w-6x1 mx-auto px-6 py-4 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center">
+        <div>© <span id="copyYear"></span> Redes Home Decor. All rights reserved.</div>
+        <div class="mt-2 md:mt-0">Built with care — <a href="https://www.redescreation.in" class="text-[var(--accent)]">redescreation.in</a></div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================
+       JavaScript for interactivity
+       - mobile menu
+       - reveal animations
+       - portfolio filtering + lightbox
+       - testimonials carousel
+       - contact form demo (client-side)
+       - small accessibility helpers
+       ============================ -->
+  <script>
+    /* -------------------------
+       Small helpers & DOM cache
+       ------------------------- */
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+
+    const body = document.body;
+
+    // Mobile menu open/close
+    menuBtn.addEventListener('click', ()=>{
+      mobileMenu.classList.remove('hidden');
+      mobileMenu.setAttribute('aria-hidden','false');
+      menuBtn.setAttribute('aria-expanded','true');
+      // disable body scroll while menu open
+      body.style.overflow = 'hidden';
+      // small animation: translate the panel into view
+      const panel = mobileMenu.querySelector('[role="dialog"]');
+      if(panel){ panel.style.transform = 'translateX(0)'; }
+    });
+
+    closeMenu.addEventListener('click', ()=>{
+      mobileMenu.classList.add('hidden');
+      mobileMenu.setAttribute('aria-hidden','true');
+      menuBtn.setAttribute('aria-expanded','false');
+      body.style.overflow = '';
+      const panel = mobileMenu.querySelector('[role="dialog"]');
+      if(panel){ panel.style.transform = ''; }
+    });
+
+    // Close mobile menu on backdrop click
+    mobileMenu.addEventListener('click', (e)=>{
+      if(e.target === mobileMenu){
+        closeMenu.click();
+      }
+    });
+
+    /* ----------------------------------------------------
+       IntersectionObserver for reveal animations & images
+       ---------------------------------------------------- */
+    const inViewObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          inViewObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll('.fade-up, .slide-left, .reveal-img').forEach(el => inViewObserver.observe(el));
+
+    /* ----------------------------------------------------
+       PORTFOLIO FILTER + LIGHTBOX
+       - Clicking a portfolio item opens the lightbox
+       ---------------------------------------------------- */
+    const filterBtns = document.querySelectorAll('[data-filter]');
+    const portfolioGrid = document.getElementById('portfolioGrid');
+    filterBtns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const f = btn.dataset.filter;
+        document.querySelectorAll('#portfolioGrid > figure').forEach(fig=>{
+          if(f === 'all' || fig.dataset.cat === f){
+            fig.style.display = 'block';
+            // small animation
+            fig.style.opacity = 0;
+            setTimeout(()=>{ fig.style.opacity = 1; }, 20);
+          } else {
+            fig.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lbImage = document.getElementById('lbImage');
+    const lbTitle = document.getElementById('lbTitle');
+    const lbDesc = document.getElementById('lbDesc');
+    const lbClose = document.getElementById('lbClose');
+
+    document.querySelectorAll('.portfolio-thumb').forEach(img=>{
+      img.addEventListener('click', (e)=>{
+        const src = img.getAttribute('src');
+        const title = img.dataset.title || '';
+        const desc = img.dataset.desc || '';
+        lbImage.src = src;
+        lbImage.alt = title;
+        lbTitle.textContent = title;
+        lbDesc.textContent = desc;
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden','false');
+        // trap focus briefly
+        lbClose.focus();
+      });
+    });
+
+    lbClose.addEventListener('click', () => {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden','true');
+      lbImage.src = '';
+    });
+
+    lightbox.addEventListener('click', (e)=>{
+      if(e.target === lightbox) lbClose.click();
+    });
+
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && lightbox.classList.contains('open')){
+        lbClose.click();
+      }
+    });
+
+    /* ----------------------------------------------------
+       TESTIMONIALS CAROUSEL
+       - basic sliding carousel with dots
+       ---------------------------------------------------- */
+    const testiTrack = document.getElementById('testiTrack');
+    const prevTesti = document.getElementById('prevTesti');
+    const nextTesti = document.getElementById('nextTesti');
+    const testiDots = document.getElementById('testiDots');
+
+    let testiIndex = 0;
+    const testiCount = testiTrack.children.length;
+
+    function renderTestiDots(){
+      testiDots.innerHTML = '';
+      for(let i=0;i<testiCount;i++){
+        const dot = document.createElement('span');
+        dot.className = 'carousel-dot' + (i === testiIndex ? ' active' : '');
+        dot.setAttribute('aria-label','Go to testimonial ' + (i+1));
+        dot.addEventListener('click', ()=>{ goToTesti(i); });
+        testiDots.appendChild(dot);
+      }
+    }
+
+    function goToTesti(index){
+      testiIndex = (index + testiCount) % testiCount;
+      const shift = -testiIndex * testiTrack.clientWidth;
+      testiTrack.style.transform = `translateX(${shift}px)`;
+      renderTestiDots();
+    }
+
+    prevTesti.addEventListener('click', ()=>{ goToTesti(testiIndex - 1); });
+    nextTesti.addEventListener('click', ()=>{ goToTesti(testiIndex + 1); });
+
+    // auto-advance
+    let testiTimer = setInterval(()=>{ goToTesti(testiIndex + 1); }, 5000);
+
+    // pause on hover
+    testiTrack.addEventListener('mouseover', ()=>{ clearInterval(testiTimer); });
+    testiTrack.addEventListener('mouseout', ()=>{ testiTimer = setInterval(()=>{ goToTesti(testiIndex + 1); }, 5000); });
+
+    // initial render
+    window.addEventListener('load', ()=>{ renderTestiDots(); goToTesti(0); });
+
+    /* ----------------------------------------------------
+       Contact form demo handler (client-side)
+       - validate basics, show a friendly message
+       ---------------------------------------------------- */
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+
+    contactForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      // Basic validation
+      if(!name || !email){
+        formStatus.textContent = 'Please fill in name and email.';
+        formStatus.style.color = 'crimson';
+        return;
+      }
+      // Simulate sending
+      formStatus.textContent = 'Sending...';
+      formStatus.style.color = '#666';
+      setTimeout(()=>{
+        formStatus.textContent = 'Thanks — your message has been received (demo).';
+        formStatus.style.color = 'green';
+        contactForm.reset();
+      }, 900);
+    });
+
+    /* ----------------------------------------------------
+       Small utilities: set year for copyright
+       ---------------------------------------------------- */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ----------------------------------------------------
+       Accessibility: Allow keyboard navigation for portfolio items
+       ---------------------------------------------------- */
+    document.querySelectorAll('.portfolio-thumb').forEach(img=>{
+      img.setAttribute('tabindex','0');
+      img.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          img.click();
+        }
+      });
+    });
+
+    /* ----------------------------------------------------
+       Minor enhancement: Lazy reveal for hero product image
+       ---------------------------------------------------- */
+    const heroImg = document.querySelector('.reveal-img');
+    if(heroImg){
+      // ensure it becomes visible shortly after load
+      setTimeout(()=>{ heroImg.classList.add('in-view'); }, 420);
+    }
+
+    /* ============================================================
+       Future enhancement placeholders (server integration tips)
+       - Use server endpoints to accept contact form submissions
+       - Use CMS or headless CMS to populate blog and portfolio items
+       - Use image CDN for performant images and srcset
+       ============================================================ */
+  </script>
+
+  <!--
+    =======================================================================
+    END OF FILE
+    =======================================================================
+  -->
+</body>
+</html>

@@ -1,0 +1,1241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Projects — Redes Home Decor | Banguluru</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Projects by Redes Home Decor — curated interior & furniture projects: living rooms, bedrooms, kitchens, outdoor and office transformations." />
+  <meta name="theme-color" content="#d46b6b" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ================
+       Custom CSS (complements Tailwind)
+       ================ */
+    :root{
+      --accent:#d46b6b;
+      --accent-2:#c75b5b;
+      --muted:#f6f4f4;
+      --text:#111827;
+    }
+
+    /* custom container width used in the About reference */
+    .max-w-6x1 { max-width: 1200px; }
+
+    html { scroll-behavior: smooth; }
+
+    /* reveal animations */
+    .reveal { opacity:0; transform: translateY(18px); transition: all .65s cubic-bezier(.2,.9,.2,1); will-change: transform, opacity; }
+    .reveal.in-view { opacity:1; transform: translateY(0); }
+
+    .reveal-left { opacity:0; transform: translateX(-20px); transition: all .65s cubic-bezier(.2,.9,.2,1); }
+    .reveal-left.in-view { opacity:1; transform: translateX(0); }
+
+    .reveal-right { opacity:0; transform: translateX(20px); transition: all .65s cubic-bezier(.2,.9,.2,1); }
+    .reveal-right.in-view { opacity:1; transform: translateX(0); }
+
+    /* floating */
+    @keyframes floaty { 0% { transform: translateY(0);} 50% { transform: translateY(-8px); } 100% { transform: translateY(0);} }
+    .floaty { animation: floaty 6s ease-in-out infinite; }
+
+    /* card hover */
+    .card-hover { transition: transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s; }
+    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(16,24,40,0.08); }
+
+    /* overlay */
+    .overlay { background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.45) 100%); }
+
+    /* modal */
+    .modal-bg { position: fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(0,0,0,0.7); z-index:1200; opacity:0; pointer-events:none; transition: opacity .25s ease; }
+    .modal-bg.show { opacity:1; pointer-events:auto; }
+    .modal-panel { background: #fff; border-radius: 12px; max-width: 1000px; width: calc(100% - 32px); max-height: 92vh; overflow:auto; box-shadow: 0 30px 60px rgba(2,6,23,0.36); }
+
+    /* carousel dots */
+    .dot { display:inline-block; width:10px; height:10px; border-radius:9999px; background:#eee; margin:0 6px; cursor:pointer; }
+    .dot.active { background: var(--accent); transform:scale(1.05); }
+
+    /* accessibility helpers */
+    .sr-only { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    /* masonry column fix for mobile */
+    @media (max-width: 640px) {
+      .masonry-column { break-inside: avoid; }
+    }
+
+    /* small utilities */
+    .fancy-divider { height:6px; border-radius:8px; background: linear-gradient(90deg, rgba(212,107,107,0.1), rgba(212,107,107,0.02)); }
+  </style>
+</head>
+
+<body class="antialiased text-gray-800 bg-white">
+
+  <!-- Skip link -->
+  <a href="#main" class="sr-only">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER / NAV
+       Semantic header with desktop and mobile behaviors
+       ============================================================ -->
+  <header class="border-b" role="banner">
+    <div class="mx-auto max-w-6x1 px-6 py-4 flex items-center justify-between">
+      <!-- BRAND -->
+      <a href="index.html" class="flex items-center gap-3" aria-label="Redes Home Decor home">
+        <!-- SVG mark -->
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <path d="M4 12c0-4 4-8 8-8s8 4 8 8-4 8-8 8S4 16 4 12z" fill="var(--accent)"/>
+          <path d="M8 12c0-2.2 2.7-4 6-4" stroke="#fff" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+         <div class="">
+          <div class="text-2xl font-extrabold leading-none">Redes</div>
+          <div class="text-xs text-gray-500 -mt-1">Home Decor</div>
+        </div>
+      </a>
+
+      <!-- NAV (desktop) -->
+      <nav class="hidden md:flex items-center gap-8" role="navigation" aria-label="Primary">
+        <a href="index.html" class="hover:text-gray-900">Home</a>
+        <a href="product.html" class="hover:text-gray-900">Shop</a>
+        <a href="projects.html" class="hover:text-gray-900">Portfolio</a>
+        <a href="about.html" class="hover:text-gray-900">About</a>
+        <a href="blog.html" class="hover:text-gray-900">Blog</a>
+        <a href="contact.html" class="hover:text-gray-900">Contact</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-4">
+        <button aria-label="search" class="hidden md:inline-flex items-center px-3 py-2 rounded-lg hover:bg-gray-100">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M21 21l-4.35-4.35" stroke="#333" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="11" cy="11" r="6" stroke="#333" stroke-width="1.6"/>
+          </svg>
+        </button>
+
+        <a href="contact.html" class="hidden md:inline-block px-4 py-2 border rounded-md text-sm" style="border-color:var(--accent); color:var(--accent)">Get Quote</a>
+
+        <!-- Mobile hamburger -->
+        <button id="menuBtn" class="md:hidden p-2" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M3 6h18M3 12h18M3 18h18" stroke="#333" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE SLIDE-OUT MENU -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black/40 z-40 hidden" aria-hidden="true">
+      <div class="absolute right-0 top-0 w-80 h-full bg-white p-6 shadow-lg transform transition-transform duration-300 ease" role="dialog" aria-modal="true" aria-label="Mobile menu">
+        <button id="closeMenu" class="mb-6 p-2 inline-flex text-gray-600" aria-label="Close menu">✕</button>
+        <nav class="flex flex-col gap-4 text-lg">
+          <a href="index.html" class="py-2 border-b">Home</a>
+          <a href="product.html" class="py-2 border-b">Shop</a>
+          <a href="projects.html" class="py-2 border-b">Portfolio</a>
+          <a href="about.html" class="py-2 border-b">About</a>
+          <a href="blog.html" class="py-2 border-b">Blog</a>
+          <a href="contact.html" class="py-2 border-b">Contact</a>
+        </nav>
+
+        <div class="mt-6 border-t pt-4 flex items-center gap-4 text-sm">
+          <a href="#" aria-label="facebook" class="hover:text-gray-700"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="instagram" class="hover:text-gray-700"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="pinterest" class="hover:text-gray-700"><i class="fa-brands fa-pinterest-p"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ================= HERO (About-like) ================= -->
+  <main id="main" class="relative">
+
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-fixed bg-center bg-cover" style="background-image:url('https://tse4.mm.bing.net/th/id/OIP.Yg9FGwAsNMCmh3tsVoHwjQHaFE?rs=1&pid=ImgDetMain&o=7&rm=3'); filter: saturate(.95) brightness(.9);"></div>
+      <div class="absolute inset-0 bg-white/80"></div>
+
+      <div class="relative mx-auto max-w-6x1 px-6 py-20 md:py-28 flex flex-col md:flex-row items-center gap-10">
+        <div class="md:w-1/2">
+          <div class="inline-flex items-center gap-3">
+            <span class="bg-white/90 px-3 py-1 rounded-full text-sm text-gray-700">Our Projects</span>
+            <span class="ml-2 inline-block w-20 h-1 rounded bg-gradient-to-r from-[#d46b6b] to-[#c75b5b]"></span>
+          </div>
+
+          <h1 class="mt-6 text-4xl md:text-5xl font-extrabold text-gray-900">Spaces we designed — thoughtful, functional, beautiful</h1>
+
+          <p class="mt-6 text-gray-700 max-w-xl">
+            We design and build interiors and custom furniture that fit real homes.
+            Explore our recent projects — living rooms, bedrooms, kitchens, outdoor spaces and office solutions.
+            Each project highlights our design thinking, material choices and craft.
+          </p>
+
+          <div class="mt-6 flex gap-4">
+            <a href="#projects-filter" class="px-5 py-3 rounded-md" style="background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:white; box-shadow:0 10px 24px rgba(212,107,107,0.12);">Browse Projects</a>
+            <a href="#contact" class="px-5 py-3 rounded-md border border-gray-200">Contact Us</a>
+          </div>
+        </div>
+
+        <div class="md:w-1/2 flex justify-center">
+          <div class="w-full max-w-md bg-white rounded-3xl p-6 shadow-lg floaty card-hover">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.Yg9FGwAsNMCmh3tsVoHwjQHaFE?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Studio workshop preview" class="rounded-xl object-cover w-full h-64" />
+            <div class="mt-4">
+              <div class="text-sm text-green-700 font-semibold">From our studio</div>
+              <div class="font-semibold text-lg mt-1">Craft, detail & finish</div>
+              <p class="text-sm text-gray-500 mt-2">A glimpse of our process — sketches, prototypes and finished pieces in real spaces.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.hero-content -->
+    </section>
+
+    <div class="fancy-divider"></div>
+
+    <!-- ================= FILTER BAR ================= -->
+    <section id="projects-filter" class="py-8">
+      <div class="mx-auto max-w-6x1 px-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex gap-3 items-center">
+            <label class="text-sm font-medium text-gray-700">Filter by:</label>
+            <div id="filterButtons" class="inline-flex gap-2 flex-wrap">
+              <button class="filter-btn px-3 py-2 rounded-md bg-white border text-sm" data-filter="all" aria-pressed="true">All</button>
+              <button class="filter-btn px-3 py-2 rounded-md bg-white border text-sm" data-filter="living">Living Room</button>
+              <button class="filter-btn px-3 py-2 rounded-md bg-white border text-sm" data-filter="bedroom">Bedroom</button>
+              <button class="filter-btn px-3 py-2 rounded-md bg-white border text-sm" data-filter="kitchen">Kitchen</button>
+              <button class="filter-btn px-3 py-2 rounded-md bg-white border text-sm" data-filter="outdoor">Outdoor</button>
+              <button class="filter-btn px-3 py-2 rounded-md bg-white border text-sm" data-filter="office">Office</button>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <label for="searchProject" class="sr-only">Search projects</label>
+            <input id="searchProject" type="search" placeholder="Search projects..." class="border rounded-md px-3 py-2 text-sm w-56" />
+            <select id="sortProject" class="border rounded-md px-3 py-2 text-sm">
+              <option value="recent">Most recent</option>
+              <option value="popular">Most popular</option>
+              <option value="alpha">A — Z</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS GRID (Masonry-like) ================= -->
+    <section class="py-6">
+      <div class="mx-auto max-w-6x1 px-6">
+        <div id="projectsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- 30 unique project cards below. Each card contains data attributes used by JS filtering and modal -->
+          
+          <!-- Project 1 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="living" data-title="Warm Minimal Living" data-year="2024" data-desc="A comfortable living room blending neutral tones, layered textiles and timber furniture.">
+            <div class="relative">
+              <img src="https://magment.com/wp-content/uploads/2015/11/Contemporary-Home-Decor-16.jpg" alt="Warm minimal living room with timber accents" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Warm Minimal Living">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Warm Minimal Living</h3>
+              <p class="text-sm text-gray-500 mt-1">Neutral palette, layered textures & custom sofa.</p>
+              <div class="mt-3 text-xs text-gray-400">2024 — Living Room</div>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="bedroom" data-title="Serene Bedroom Retreat" data-year="2023" data-desc="Soft linens, muted colors and a custom headboard create a restful bedroom environment.">
+            <div class="relative">
+              <img src="https://magment.com/wp-content/uploads/2015/11/Contemporary-Home-Decor-16.jpg" alt="Serene bedroom with linen textiles" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Serene Bedroom Retreat">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Serene Bedroom Retreat</h3>
+              <p class="text-sm text-gray-500 mt-1">A calm palette with natural materials and ambient lighting.</p>
+              <div class="mt-3 text-xs text-gray-400">2023 — Bedroom</div>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="kitchen" data-title="Compact Kitchen Upgrade" data-year="2022" data-desc="Space-efficient kitchen with engineered countertops and open shelving.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2f1a3b5c" alt="Compact modern kitchen with open shelving" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Compact Kitchen Upgrade">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Compact Kitchen Upgrade</h3>
+              <p class="text-sm text-gray-500 mt-1">Functional layout, integrated appliances & clever storage.</p>
+              <div class="mt-3 text-xs text-gray-400">2022 — Kitchen</div>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="outdoor" data-title="Rooftop Garden Nook" data-year="2024" data-desc="A small rooftop project featuring easy-care planters and seating for evening gatherings.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=6c1b2a9d" alt="Rooftop garden with seating" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Rooftop Garden Nook">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Rooftop Garden Nook</h3>
+              <p class="text-sm text-gray-500 mt-1">Urban green space with weatherproof furnishings.</p>
+              <div class="mt-3 text-xs text-gray-400">2024 — Outdoor</div>
+            </div>
+          </article>
+
+          <!-- Project 5 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="office" data-title="Home Office Focus" data-year="2021" data-desc="A compact home office with storage, natural light and a calming palette to boost productivity.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=3b4f5c2a" alt="Minimal home office with timber desk" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Home Office Focus">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Home Office Focus</h3>
+              <p class="text-sm text-gray-500 mt-1">Organized work area with acoustic considerations and storage.</p>
+              <div class="mt-3 text-xs text-gray-400">2021 — Office</div>
+            </div>
+          </article>
+
+          <!-- Project 6 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="living" data-title="Scandinavian Living" data-year="2020" data-desc="Bright living room with pale wood, functional furniture and tactile textiles.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=a1b2c3d4" alt="Scandinavian living room with pale wood" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Scandinavian Living">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Scandinavian Living</h3>
+              <p class="text-sm text-gray-500 mt-1">Light, airy design with thoughtful storage solutions.</p>
+              <div class="mt-3 text-xs text-gray-400">2020 — Living Room</div>
+            </div>
+          </article>
+
+          <!-- Project 7 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="bedroom" data-title="Boho Bedroom Refresh" data-year="2022" data-desc="A lively bedroom with layered rugs, plants and handmade accents.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=0f1a2b3c" alt="Boho bedroom with rugs and plants" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Boho Bedroom Refresh">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Boho Bedroom Refresh</h3>
+              <p class="text-sm text-gray-500 mt-1">Eclectic patterns, handcrafted elements and warm lighting.</p>
+              <div class="mt-3 text-xs text-gray-400">2022 — Bedroom</div>
+            </div>
+          </article>
+
+          <!-- Project 8 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="kitchen" data-title="Open Plan Kitchen" data-year="2023" data-desc="Open layout with island seating, matte cabinetry and brass hardware.">
+            <div class="relative">
+              <img src="https://magment.com/wp-content/uploads/2015/11/Contemporary-Home-Decor-16.jpg" alt="Open plan kitchen with island" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Open Plan Kitchen">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Open Plan Kitchen</h3>
+              <p class="text-sm text-gray-500 mt-1">Contemporary finishes with curated shelving and task lighting.</p>
+              <div class="mt-3 text-xs text-gray-400">2023 — Kitchen</div>
+            </div>
+          </article>
+
+          <!-- Project 9 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="outdoor" data-title="Patio Lounge" data-year="2021" data-desc="Comfortable outdoor seating with weather-proof textiles and planters.">
+            <div class="relative">
+              <img src="https://thewowstyle.com/wp-content/uploads/2015/06/beautiful-living-room-home-interior-design-ideas.jpg" alt="Patio lounge with seating and greenery" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Patio Lounge">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Patio Lounge</h3>
+              <p class="text-sm text-gray-500 mt-1">Relaxed seating area with heat lamps and layered rugs.</p>
+              <div class="mt-3 text-xs text-gray-400">2021 — Outdoor</div>
+            </div>
+          </article>
+
+          <!-- Project 10 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="office" data-title="Studio Workspace" data-year="2024" data-desc="Open studio workspace with long communal table and storage solutions for makers.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7a6b5c4d" alt="Studio workspace with communal table" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Studio Workspace">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Studio Workspace</h3>
+              <p class="text-sm text-gray-500 mt-1">Flexible benches and ample daylight to boost creativity.</p>
+              <div class="mt-3 text-xs text-gray-400">2024 — Office</div>
+            </div>
+          </article>
+
+          <!-- Project 11 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="living" data-title="Family Living Refresh" data-year="2022" data-desc="Durable finishes, stain-resistant upholstery and playful accents for family life.">
+            <div class="relative">
+              <img src="https://thewowstyle.com/wp-content/uploads/2015/06/beautiful-living-room-home-interior-design-ideas.jpg" alt="Family-friendly living area" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Family Living Refresh">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Family Living Refresh</h3>
+              <p class="text-sm text-gray-500 mt-1">Practical design that still feels warm and curated.</p>
+              <div class="mt-3 text-xs text-gray-400">2022 — Living Room</div>
+            </div>
+          </article>
+
+          <!-- Project 12 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="bedroom" data-title="Minimal Master Suite" data-year="2023" data-desc="Streamlined master bedroom with integrated wardrobes and serene materials.">
+            <div class="relative">
+              <img src="https://thewowstyle.com/wp-content/uploads/2015/06/beautiful-living-room-home-interior-design-ideas.jpg" alt="Minimal master bedroom" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Minimal Master Suite">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Minimal Master Suite</h3>
+              <p class="text-sm text-gray-500 mt-1">Integrated storage and soft lighting for a restful atmosphere.</p>
+              <div class="mt-3 text-xs text-gray-400">2023 — Bedroom</div>
+            </div>
+          </article>
+
+          <!-- Project 13 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="kitchen" data-title="Compact Galley Kitchen" data-year="2021" data-desc="A high-performance galley kitchen with pull-out storage and matte finishes.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2a3b4c5d" alt="Galley kitchen with matte cabinets" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Compact Galley Kitchen">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Compact Galley Kitchen</h3>
+              <p class="text-sm text-gray-500 mt-1">Efficient layout, premium fittings and integrated lighting.</p>
+              <div class="mt-3 text-xs text-gray-400">2021 — Kitchen</div>
+            </div>
+          </article>
+
+          <!-- Project 14 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="outdoor" data-title="Balcony Makeover" data-year="2020" data-desc="Small balcony redesigned with vertical planting and fold-away seating to maximize space.">
+            <div class="relative">
+              <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Small balcony with vertical plants" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Balcony Makeover">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Balcony Makeover</h3>
+              <p class="text-sm text-gray-500 mt-1">Greenery and fold-away furniture to create flexible outdoor space.</p>
+              <div class="mt-3 text-xs text-gray-400">2020 — Outdoor</div>
+            </div>
+          </article>
+
+          <!-- Project 15 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="office" data-title="Boutique Office" data-year="2022" data-desc="A boutique office space with meeting nook, acoustic panels and meeting table for small teams.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1519974719765-e6559eac2575?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=3a2b1c4d" alt="Boutique office with meeting nook" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Boutique Office">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Boutique Office</h3>
+              <p class="text-sm text-gray-500 mt-1">Compact meeting area with integrated storage and display.</p>
+              <div class="mt-3 text-xs text-gray-400">2022 — Office</div>
+            </div>
+          </article>
+
+          <!-- Project 16 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="living" data-title="Coastal Living Update" data-year="2021" data-desc="Subtle coastal palette, natural fibers and relaxed seating — ideal for seaside homes.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=8b7a6c5d" alt="Coastal living room with natural fibers" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Coastal Living Update">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Coastal Living Update</h3>
+              <p class="text-sm text-gray-500 mt-1">Airy materials with relaxed seating and woven textures.</p>
+              <div class="mt-3 text-xs text-gray-400">2021 — Living Room</div>
+            </div>
+          </article>
+
+          <!-- Project 17 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="bedroom" data-title="Contemporary Twin Room" data-year="2020" data-desc="Twin bedroom with built-in storage and playful accent wall for a family home.">
+            <div class="relative">
+              <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Twin bedroom with built-in storage" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Contemporary Twin Room">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Contemporary Twin Room</h3>
+              <p class="text-sm text-gray-500 mt-1">Durable finishes and playful accents for kids and teens.</p>
+              <div class="mt-3 text-xs text-gray-400">2020 — Bedroom</div>
+            </div>
+          </article>
+
+          <!-- Project 18 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="kitchen" data-title="Farmhouse Kitchen" data-year="2019" data-desc="Warm farmhouse kitchen with open shelving, butcher-block island and vintage details.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=6e5d4c3b" alt="Farmhouse kitchen with butcher block island" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Farmhouse Kitchen">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Farmhouse Kitchen</h3>
+              <p class="text-sm text-gray-500 mt-1">Vintage touches paired with modern functionality.</p>
+              <div class="mt-3 text-xs text-gray-400">2019 — Kitchen</div>
+            </div>
+          </article>
+
+          <!-- Project 19 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="outdoor" data-title="Deck & Pergola" data-year="2022" data-desc="Outdoor deck with pergola, string lights and modular seating for summer entertaining.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2c1b0a9e" alt="Deck and pergola with seating" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Deck & Pergola">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Deck & Pergola</h3>
+              <p class="text-sm text-gray-500 mt-1">Outdoor living extended with durable finishes and soft lighting.</p>
+              <div class="mt-3 text-xs text-gray-400">2022 — Outdoor</div>
+            </div>
+          </article>
+
+          <!-- Project 20 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="office" data-title="Creative Studio" data-year="2023" data-desc="A studio layout optimized for small teams with material samples, storage and presentation wall.">
+            <div class="relative">
+              <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Creative studio with material boards" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Creative Studio">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Creative Studio</h3>
+              <p class="text-sm text-gray-500 mt-1">Material-rich space for design collaboration and sample review.</p>
+              <div class="mt-3 text-xs text-gray-400">2023 — Office</div>
+            </div>
+          </article>
+
+          <!-- Project 21 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="living" data-title="Heritage Living" data-year="2018" data-desc="Restoration and sensitive interventions to highlight original features with modern comforts.">
+            <div class="relative">
+              <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Heritage living room restoration" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Heritage Living">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Heritage Living</h3>
+              <p class="text-sm text-gray-500 mt-1">Layered history with contemporary interventions to improve function.</p>
+              <div class="mt-3 text-xs text-gray-400">2018 — Living Room</div>
+            </div>
+          </article>
+
+          <!-- Project 22 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="bedroom" data-title="Loft Bedroom" data-year="2024" data-desc="Loft conversion with skylights, minimalist furniture and smart storage under sloped ceilings.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=6b7c8d9e" alt="Loft bedroom with skylights" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Loft Bedroom">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Loft Bedroom</h3>
+              <p class="text-sm text-gray-500 mt-1">Clever profiles and skylights that bring light into tight spaces.</p>
+              <div class="mt-3 text-xs text-gray-400">2024 — Bedroom</div>
+            </div>
+          </article>
+
+          <!-- Project 23 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="kitchen" data-title="Monochrome Kitchen" data-year="2020" data-desc="Bold monochrome kitchen with integrated appliances and statement lighting.">
+            <div class="relative">
+              <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Monochrome kitchen with statement lighting" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Monochrome Kitchen">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Monochrome Kitchen</h3>
+              <p class="text-sm text-gray-500 mt-1">Graphic finishes balanced with warm timber accessories.</p>
+              <div class="mt-3 text-xs text-gray-400">2020 — Kitchen</div>
+            </div>
+          </article>
+
+          <!-- Project 24 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="outdoor" data-title="Courtyard Renewal" data-year="2021" data-desc="Small courtyard redesigned with native planting and movable furniture for flexibility.">
+            <div class="relative">
+              <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Courtyard with native plants and movable furniture" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Courtyard Renewal">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Courtyard Renewal</h3>
+              <p class="text-sm text-gray-500 mt-1">Low-maintenance planting, flexible seating and subtle lighting.</p>
+              <div class="mt-3 text-xs text-gray-400">2021 — Outdoor</div>
+            </div>
+          </article>
+
+          <!-- Project 25 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="office" data-title="Client Meeting Space" data-year="2019" data-desc="A welcoming meeting space with durable fabrics and acoustics designed for conversation.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1519974719765-e6559eac2575?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=9c8b7a6d" alt="Client meeting space with round table" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Client Meeting Space">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Client Meeting Space</h3>
+              <p class="text-sm text-gray-500 mt-1">Acoustically-considered space for focused client meetings.</p>
+              <div class="mt-3 text-xs text-gray-400">2019 — Office</div>
+            </div>
+          </article>
+
+          <!-- Project 26 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="living" data-title="Neutral Family Room" data-year="2022" data-desc="Comfort-oriented family space with stain-resistant fabrics and durable surfaces.">
+            <div class="relative">
+              <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Neutral family room with durable upholstery" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Neutral Family Room">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Neutral Family Room</h3>
+              <p class="text-sm text-gray-500 mt-1">Practical fabrics, toy-friendly storage and cushioned seating.</p>
+              <div class="mt-3 text-xs text-gray-400">2022 — Living Room</div>
+            </div>
+          </article>
+
+          <!-- Project 27 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="bedroom" data-title="Guest Suite Makeover" data-year="2020" data-desc="Accessible guest suite with storage solutions and soothing color palette to welcome visitors.">
+            <div class="relative">
+              <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Guest suite with soft palette" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Guest Suite Makeover">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Guest Suite Makeover</h3>
+              <p class="text-sm text-gray-500 mt-1">Comfort-first approach with smart storage and welcoming textiles.</p>
+              <div class="mt-3 text-xs text-gray-400">2020 — Bedroom</div>
+            </div>
+          </article>
+
+          <!-- Project 28 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="kitchen" data-title="Brass Accents Kitchen" data-year="2024" data-desc="Kitchen with warm brass accents, soft-close drawers, and textured backsplash tiles.">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=0d1c2b3a" alt="Kitchen with brass accents and textured tiles" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Brass Accents Kitchen">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Brass Accents Kitchen</h3>
+              <p class="text-sm text-gray-500 mt-1">Warm metals combined with textured tiles for a tactile kitchen experience.</p>
+              <div class="mt-3 text-xs text-gray-400">2024 — Kitchen</div>
+            </div>
+          </article>
+
+          <!-- Project 29 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="outdoor" data-title="Terrace Dining" data-year="2023" data-desc="Terrace dining with modular seating and weatherproof textiles for year-round use.">
+            <div class="relative">
+              <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Terrace dining with modular seating" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Terrace Dining">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Terrace Dining</h3>
+              <p class="text-sm text-gray-500 mt-1">Alfresco dining with flexible furniture and layered lighting.</p>
+              <div class="mt-3 text-xs text-gray-400">2023 — Outdoor</div>
+            </div>
+          </article>
+
+          <!-- Project 30 -->
+          <article class="project-card reveal card-hover bg-white rounded-lg overflow-hidden shadow" data-category="office" data-title="Design Review Room" data-year="2022" data-desc="A compact review room with display rails for samples and flexible seating for clients and collaborators.">
+            <div class="relative">
+              <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Design review room with sample displays" class="w-full h-64 object-cover" loading="lazy">
+              <div class="absolute inset-0 overlay opacity-0 hover:opacity-100 transition flex items-end">
+                <div class="p-4 w-full text-white">
+                  <button class="openProject inline-flex items-center gap-2 bg-[var(--accent)]/90 px-3 py-2 rounded" aria-label="View project Design Review Room">View Project</button>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-lg">Design Review Room</h3>
+              <p class="text-sm text-gray-500 mt-1">Functional display options and adaptable seating for walkthroughs.</p>
+              <div class="mt-3 text-xs text-gray-400">2022 — Office</div>
+            </div>
+          </article>
+
+        </div> <!-- /projectsGrid -->
+
+        <!-- Load more -->
+        <div class="mt-8 text-center">
+          <button id="loadMore" class="px-6 py-3 rounded bg-white border" aria-label="Load more projects">Load more projects</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="fancy-divider"></div>
+
+    <!-- ================= PROJECT DETAIL MODAL (quick-view + carousel) ================= -->
+    <div id="projectModal" class="modal-bg" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projectTitle">
+      <div class="modal-panel p-6">
+        <div class="flex items-start justify-between gap-6">
+          <div style="flex:1 1 55%">
+            <div id="carousel" class="relative">
+              <div id="carouselTrack" class="flex transition-transform" style="will-change:transform;">
+                <!-- images will be injected by JS -->
+              </div>
+              <div class="mt-3 flex items-center justify-center">
+                <div id="carouselDots" class="inline-flex"></div>
+              </div>
+            </div>
+          </div>
+
+          <aside style="flex:1 1 45%">
+            <div>
+              <button id="modalClose" class="float-right text-gray-600" aria-label="Close project dialog">✕</button>
+              <h2 id="projectTitle" class="text-2xl font-semibold mb-2">Project Title</h2>
+              <p id="projectMeta" class="text-sm text-gray-500 mb-4">Year — Category</p>
+              <p id="projectDescription" class="text-gray-700 mb-4">Project description here outlining the brief, solutions and materials used.</p>
+              <div class="mt-4">
+                <h4 class="font-semibold">Key features</h4>
+                <ul id="projectFeatures" class="list-disc pl-5 text-sm text-gray-600 mt-2">
+                  <!-- features injected -->
+                </ul>
+              </div>
+
+              <div class="mt-6">
+                <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded bg-[var(--accent)] text-white">Start Your Project</a>
+                <button id="modalPrev" class="ml-3 px-3 py-2 border rounded">Prev</button>
+                <button id="modalNext" class="ml-2 px-3 py-2 border rounded">Next</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TESTIMONIALS & CTA ================= -->
+    <section class="py-12 bg-[var(--muted)]">
+      <div class="mx-auto max-w-6x1 px-6">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 class="text-3xl font-semibold">What clients say</h3>
+            <p class="text-gray-600 mt-2">Feedback from homeowners and design partners we worked with.</p>
+
+            <div id="testimonials" class="mt-6 space-y-4">
+              <blockquote class="bg-white p-4 rounded shadow">
+                <p class="italic">"The Redes team transformed our living room — thoughtful, on time and beautiful."</p>
+                <footer class="text-sm text-gray-500 mt-2">— S. Rao</footer>
+              </blockquote>
+
+              <blockquote class="bg-white p-4 rounded shadow">
+                <p class="italic">"Practical solutions with a refined aesthetic. We love our kitchen."</p>
+                <footer class="text-sm text-gray-500 mt-2">— Priya M.</footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-3xl font-semibold">Start your project</h3>
+            <p class="text-gray-600 mt-2">Tell us about your space and we'll propose design solutions that suit your lifestyle and budget.</p>
+            <div class="mt-4">
+              <a href="#contact" class="px-5 py-3 rounded bg-[var(--accent)] text-white inline-block">Request Consultation</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT PREVIEW ================= -->
+    <section id="contact" class="py-12">
+      <div class="mx-auto max-w-6x1 px-6 grid md:grid-cols-2 gap-8">
+        <div>
+          <h4 class="text-xl font-semibold">Visit or contact us</h4>
+          <p class="text-sm text-gray-600 mt-2">Banguluru — open by appointment. Phone: <a href="tel:+919676659153" class="text-[var(--accent)]">+91 96766 59153</a></p>
+          <div class="mt-4 text-sm text-gray-700">
+            <div><strong>Email:</strong> <a href="mailto:info@redescreation.in" class="text-[var(--accent)]">info@redescreation.in</a></div>
+            <div class="mt-2"><strong>Website:</strong> <a href="https://www.redescreation.in" class="text-[var(--accent)]">www.redescreation.in</a></div>
+          </div>
+        </div>
+
+        <div>
+          <form id="contactShort" class="bg-white p-6 rounded-lg shadow" aria-label="Quick contact">
+            <div class="grid grid-cols-1 gap-3">
+              <label class="text-sm">Name <input id="cname" required class="mt-1 w-full border rounded px-3 py-2" name="name" /></label>
+              <label class="text-sm">Email <input id="cemail" type="email" required class="mt-1 w-full border rounded px-3 py-2" name="email" /></label>
+              <label class="text-sm">Message <textarea id="cmessage" class="mt-1 w-full border rounded px-3 py-2" rows="3" name="message"></textarea></label>
+              <div class="flex items-center gap-3">
+                <button type="submit" class="px-4 py-2 rounded bg-[var(--accent)] text-white">Send</button>
+                <div id="cstatus" class="text-sm text-gray-500"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER (match About) ================= -->
+  <footer class="border-t">
+    <div class="mx-auto max-w-6x1 px-6 py-10 grid md:grid-cols-4 gap-6">
+      <div>
+        <h3 class="font-semibold">Redes Home Decor</h3>
+        <p class="text-sm mt-2 text-gray-600">Handcrafted furniture & curated interiors — Banguluru.</p>
+      </div>
+
+      <div>
+        <h4 class="font-semibold">Projects</h4>
+        <ul class="mt-2 text-sm space-y-2 text-gray-600">
+          <li><a href="#projects-filter">All Projects</a></li>
+          <li><a href="#projects-filter">Residential</a></li>
+          <li><a href="#projects-filter">Commercial</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold">Company</h4>
+        <ul class="mt-2 text-sm space-y-2 text-gray-600">
+          <li><a href="/about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="/careers">Careers</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold">Legal</h4>
+        <ul class="mt-2 text-sm space-y-2 text-gray-600">
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+
+        <div class="mt-4 flex gap-2 text-sm">
+          <a href="#" aria-label="Facebook">Fb</a>
+          <a href="#" aria-label="Instagram">Ig</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t">
+      <div class="mx-auto max-w-6x1 px-6 py-4 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center">
+        <div>© <span id="year"></span> Redes Home Decor. All rights reserved.</div>
+        <div>Designed & built — <a href="https://www.redescreation.in" class="text-[var(--accent)]">redescreation.in</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // ---------------------------
+    // DOM helpers
+    // ---------------------------
+    const byId = id => document.getElementById(id);
+    const q = sel => document.querySelector(sel);
+    const qAll = sel => Array.from(document.querySelectorAll(sel));
+
+    // set copyright year
+    byId('year').textContent = new Date().getFullYear();
+ // Mobile menu open/close
+    menuBtn.addEventListener('click', ()=>{
+      mobileMenu.classList.remove('hidden');
+      mobileMenu.setAttribute('aria-hidden','false');
+      menuBtn.setAttribute('aria-expanded','true');
+      // disable body scroll while menu open
+      body.style.overflow = 'hidden';
+      // small animation: translate the panel into view
+      const panel = mobileMenu.querySelector('[role="dialog"]');
+      if(panel){ panel.style.transform = 'translateX(0)'; }
+    });
+
+    closeMenu.addEventListener('click', ()=>{
+      mobileMenu.classList.add('hidden');
+      mobileMenu.setAttribute('aria-hidden','true');
+      menuBtn.setAttribute('aria-expanded','false');
+      body.style.overflow = '';
+      const panel = mobileMenu.querySelector('[role="dialog"]');
+      if(panel){ panel.style.transform = ''; }
+    });
+
+    // Close mobile menu on backdrop click
+    mobileMenu.addEventListener('click', (e)=>{
+      if(e.target === mobileMenu){
+        closeMenu.click();
+      }
+    });
+
+
+
+    // Reveal on scroll using IntersectionObserver
+    const revealEls = qAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // Filtering & searching
+    const filterButtons = qAll('#filterButtons .filter-btn');
+    const projectCards = qAll('.project-card');
+
+    // set initial active filter
+    let activeFilter = 'all';
+    q('#filterButtons .filter-btn[data-filter="all"]').classList.add('bg-[var(--accent)]','text-white');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('bg-[var(--accent)]','text-white'));
+        btn.classList.add('bg-[var(--accent)]','text-white');
+        const filter = btn.getAttribute('data-filter');
+        activeFilter = filter;
+        applyFilter();
+      });
+    });
+
+    const searchInput = byId('searchProject');
+    const sortSelect = byId('sortProject');
+
+    searchInput.addEventListener('input', applyFilter);
+    sortSelect.addEventListener('change', applyFilter);
+
+    function applyFilter(){
+      const qVal = searchInput.value.trim().toLowerCase();
+      const sortVal = sortSelect.value;
+
+      let visible = [];
+      projectCards.forEach(card => {
+        const category = card.dataset.category || '';
+        const title = (card.dataset.title || '').toLowerCase();
+        const desc = (card.dataset.desc || '').toLowerCase();
+
+        const categoryMatch = (activeFilter === 'all') || (category === activeFilter);
+        const searchMatch = qVal === '' || title.includes(qVal) || desc.includes(qVal);
+
+        if (categoryMatch && searchMatch) {
+          card.style.display = '';
+          visible.push(card);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // simple sort: reflow DOM based on sort selection
+      if (sortVal === 'alpha') {
+        visible.sort((a,b) => {
+          return a.dataset.title.localeCompare(b.dataset.title);
+        });
+      } else if (sortVal === 'recent') {
+        visible.sort((a,b) => (b.dataset.year || 0) - (a.dataset.year || 0));
+      } else if (sortVal === 'popular') {
+        // popularity not tracked — keep as is
+      }
+
+      // append in sorted order
+      const grid = byId('projectsGrid');
+      visible.forEach(v => grid.appendChild(v));
+    }
+
+    // Load more — for demo clones first set to simulate more content
+    const loadMoreBtn = byId('loadMore');
+    loadMoreBtn.addEventListener('click', () => {
+      // clone first 6 cards and append with slight modifications
+      const grid = byId('projectsGrid');
+      const current = qAll('.project-card');
+      const clones = current.slice(0,6).map((card, idx) => {
+        const copy = card.cloneNode(true);
+        const newTitle = copy.dataset.title + ' (More)';
+        copy.dataset.title = newTitle;
+        copy.querySelector('h3')?.textContent ? copy.querySelector('h3').textContent = newTitle : null;
+        grid.appendChild(copy);
+        revealObserver.observe(copy);
+        return copy;
+      });
+      // smooth scroll to newly added
+      if (clones.length) clones[0].scrollIntoView({behavior:'smooth', block:'center'});
+    });
+
+    // Modal: project quick view with simple carousel
+    const modalBg = byId('projectModal');
+    const modalClose = byId('modalClose');
+    const carouselTrack = byId('carouselTrack');
+    const carouselDots = byId('carouselDots');
+    const projectTitleNode = byId('projectTitle');
+    const projectMetaNode = byId('projectMeta');
+    const projectDescriptionNode = byId('projectDescription');
+    const projectFeaturesNode = byId('projectFeatures');
+    const modalPrev = byId('modalPrev');
+    const modalNext = byId('modalNext');
+
+    let currentProjectIndex = -1;
+    let carouselIndex = 0;
+
+    // Build an index of projects for Next/Prev
+    const allProjects = qAll('.project-card');
+
+    // helper to open project in modal
+    function openProjectFromCard(card){
+      // gather data
+      const title = card.dataset.title || card.querySelector('h3')?.innerText || 'Project';
+      const year = card.dataset.year || '';
+      const category = card.dataset.category || '';
+      const desc = card.dataset.desc || card.querySelector('p')?.innerText || '';
+      // images: for demo we will use the image src of the thumbnail and two variations by replacing size param (unsplash)
+      const thumb = card.querySelector('img')?.src || '';
+      const img1 = thumb;
+      const img2 = thumb.replace('w=1200','w=1600').replace('q=80','q=90');
+      const img3 = thumb.replace('w=1200','w=1000').replace('q=80','q=75');
+
+      // populate modal
+      projectTitleNode.textContent = title;
+      projectMetaNode.textContent = `${year} — ${capitalize(category)}`;
+      projectDescriptionNode.textContent = desc;
+
+      // features: simple extract based on category (demo)
+      projectFeaturesNode.innerHTML = '';
+      const featList = [
+        "Custom joinery and storage",
+        "Locally-sourced materials",
+        "Hand-finished surfaces",
+        "Tailored upholstery options"
+      ];
+      featList.forEach(f => {
+        const li = document.createElement('li');
+        li.textContent = f;
+        projectFeaturesNode.appendChild(li);
+      });
+
+      // build carousel
+      carouselTrack.innerHTML = '';
+      carouselDots.innerHTML = '';
+      [img1,img2,img3].forEach((src, i) => {
+        const imgWrap = document.createElement('div');
+        imgWrap.style.minWidth = '100%';
+        imgWrap.className = 'flex-shrink-0';
+        const imgEl = document.createElement('img');
+        imgEl.src = src;
+        imgEl.alt = `${title} image ${i+1}`;
+        imgEl.style.width = '100%';
+        imgEl.style.height = '360px';
+        imgEl.style.objectFit = 'cover';
+        imgWrap.appendChild(imgEl);
+        carouselTrack.appendChild(imgWrap);
+
+        const dot = document.createElement('button');
+        dot.className = 'dot';
+        dot.setAttribute('aria-label', 'Go to slide ' + (i+1));
+        dot.addEventListener('click', () => goToSlide(i));
+        carouselDots.appendChild(dot);
+      });
+
+      carouselIndex = 0;
+      updateCarousel();
+
+      // show modal
+      modalBg.classList.add('show');
+      modalBg.setAttribute('aria-hidden','false');
+
+      // set currentProjectIndex for prev/next
+      currentProjectIndex = allProjects.indexOf(card);
+    }
+
+    // helper capitalize
+    function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+    // update carousel UI
+    function updateCarousel(){
+      const slides = carouselTrack.children.length;
+      carouselTrack.style.transform = `translateX(-${carouselIndex*100}%)`;
+      Array.from(carouselDots.children).forEach((d, i) => {
+        d.classList.toggle('active', i === carouselIndex);
+      });
+    }
+
+    function nextSlide(){ carouselIndex = (carouselIndex + 1) % carouselTrack.children.length; updateCarousel(); }
+    function prevSlide(){ carouselIndex = (carouselIndex - 1 + carouselTrack.children.length) % carouselTrack.children.length; updateCarousel(); }
+    function goToSlide(i){ carouselIndex = i; updateCarousel(); }
+
+    // attach openProject on each project card's view button
+    qAll('.openProject').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        // find nearest project-card ancestor
+        const card = e.target.closest('.project-card');
+        if (card) openProjectFromCard(card);
+      });
+    });
+
+    // close modal
+    modalClose.addEventListener('click', () => {
+      modalBg.classList.remove('show');
+      modalBg.setAttribute('aria-hidden','true');
+      carouselTrack.innerHTML = '';
+      carouselDots.innerHTML = '';
+    });
+
+    // prev/next modal to navigate between projects
+    modalPrev.addEventListener('click', () => {
+      if (currentProjectIndex > 0) {
+        currentProjectIndex--;
+      } else {
+        currentProjectIndex = allProjects.length - 1;
+      }
+      openProjectFromCard(allProjects[currentProjectIndex]);
+      // keep modal open
+    });
+    modalNext.addEventListener('click', () => {
+      if (currentProjectIndex < allProjects.length - 1) {
+        currentProjectIndex++;
+      } else {
+        currentProjectIndex = 0;
+      }
+      openProjectFromCard(allProjects[currentProjectIndex]);
+    });
+
+    // keyboard accessibility for modal
+    document.addEventListener('keydown', e => {
+      if (modalBg.classList.contains('show')) {
+        if (e.key === 'Escape') modalClose.click();
+        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
+      }
+    });
+
+    // modal prev/next slide buttons: create small clickable areas on carousel for desktop
+    // (already attached to modalPrev/modaNext above)
+
+    // Testimonials & minimal carousel autoplay
+    (function testimonialsAutoplay(){
+      const track = byId('testimonials');
+      // simple rotation not required here — left as static for accessibility
+    })();
+
+    // Contact short form demo
+    const contactForm = byId('contactShort');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const status = byId('cstatus');
+        status.textContent = 'Sending...';
+        setTimeout(() => {
+          status.textContent = 'Thanks! We will get back to you within 48 hours (demo).';
+          contactForm.reset();
+        }, 900);
+      });
+    }
+
+    // Accessibility: make project cards keyboard-focusable and open on Enter
+    qAll('.project-card').forEach(pc => {
+      pc.setAttribute('tabindex','0');
+      pc.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          openProjectFromCard(pc);
+        }
+      });
+    });
+
+    // Initial reveal for already visible elements
+    window.addEventListener('load', () => {
+      revealEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 60) el.classList.add('in-view');
+      });
+    });
+
+    // small utility: when clicking images, open modal as well
+    qAll('.project-card img').forEach(img => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', (e) => {
+        const card = e.target.closest('.project-card');
+        if (card) openProjectFromCard(card);
+      });
+    });
+
+    // simple debounce helper (used for search filtering)
+    function debounce(fn, wait=200){
+      let t;
+      return function(...args){
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), wait);
+      }; 
+    }
+
+    searchInput.addEventListener('input', debounce(applyFilter, 220));
+
+    // End of script
+  </script>
+</body>
+</html>

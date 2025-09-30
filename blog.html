@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Redes Home Decor — Blog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Redes Home Decor blog — project stories, design tips, trends and inspiration." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#d46b6b;
+      --accent-2:#c75b5b;
+      --muted:#faf7f7;
+      --card-shadow: 0 10px 30px rgba(16,24,40,0.06);
+    }
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; background:var(--muted); color:#111827;}
+    .font-heading{font-family:'Playfair Display', serif;}
+    .max-w-6x1{max-width:1200px;}
+    .reveal{opacity:0; transform:translateY(18px); transition:all .6s cubic-bezier(.2,.9,.2,1);}
+    .reveal.in-view{opacity:1; transform:translateY(0);}
+    .zoom-on-hover{transition:transform .5s ease; will-change:transform;}
+    .zoom-on-hover:hover{transform:scale(1.03);}
+    .overlay-fade{transition:opacity .35s ease, transform .35s ease;}
+    .modal-root{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.65); z-index:1200; opacity:0; pointer-events:none; transition:opacity .2s;}
+    .modal-root.show{opacity:1; pointer-events:auto;}
+    .modal-panel{background:#fff; border-radius:12px; width:calc(100% - 32px); max-width:1100px; max-height:92vh; overflow:auto; box-shadow:0 30px 60px rgba(2,6,23,0.36);}
+    .sr-only{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
+    /* small utilities */
+    .fancy-bar{height:6px; width:96px; border-radius:6px; background:linear-gradient(90deg,var(--accent),var(--accent-2));}
+    .card-border{border:1px solid rgba(16,24,40,0.04);}
+    @media (max-width:768px){ .desktop-only{display:none;} }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="bg-white sticky top-0 z-50 border-b">
+    <div class="mx-auto max-w-6x1 px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3" aria-label="Redes Home Decor home">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <path d="M4 12c0-4 4-8 8-8s8 4 8 8-4 8-8 8S4 16 4 12z" fill="#d46b6b"/>
+          <path d="M8 12c0-2.2 2.7-4 6-4" stroke="#fff" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="text-xl font-semibold">Redes</div>
+          <div class="text-xs text-gray-500 -mt-1">Home Decor</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6" aria-label="Main navigation">
+        <a href="index.html" class="text-sm hover:text-gray-900">Home</a>
+        <a href="product.html" class="text-sm hover:text-gray-900">shop</a>
+        <a href="projects.html" class="text-sm hover:text-gray-900">portfolio</a>
+        <a href="about.html" class="text-sm hover:text-gray-900">About</a>
+        <a href="blog.html" class="text-sm text-gray-900 font-medium">Blog</a>
+        <a href="contact.html" class="text-sm px-3 py-2 rounded border" style="border-color:var(--accent); color:var(--accent)">Get Quote</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="searchBtn" class="hidden md:inline-flex p-2 rounded hover:bg-gray-100" aria-label="Search">🔍</button>
+        <button id="mobileToggle" class="md:hidden p-2" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+
+    <!-- mobile menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-t bg-white">
+      <div class="px-6 py-4">
+        <a href="index.html" class="block py-2">Home</a>
+        <a href="product.html" class="block py-2">shop</a>
+        <a href="projects.html" class="block py-2">portfolio</a>
+        <a href="about.html" class="block py-2">About</a>
+        <a href="blog.html" class="block py-2 font-medium">Blog</a>
+        <a href="contact.html" class="block py-2">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (in Projects style) -->
+  <section class="relative h-[68vh] flex items-center justify-center" style="background-image:url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1800&q=80'); background-size:cover; background-position:center;">
+    <div class="absolute inset-0 bg-black/45"></div>
+    <div class="relative z-10 max-w-6x1 mx-auto px-6 text-center text-white reveal" style="transform:none; opacity:1;">
+      <div class="inline-flex items-center gap-3 justify-center">
+        <span class="bg-white/10 px-3 py-1 rounded text-sm">From the studio</span>
+        <div class="fancy-bar"></div>
+      </div>
+      <h1 class="mt-6 text-4xl md:text-5xl font-heading font-bold">Our Blog — Ideas, Projects & Tips</h1>
+      <p class="mt-4 max-w-2xl mx-auto text-lg">Stories from our recent projects, quick how-tos, and seasonal inspiration for your home.</p>
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <a href="#posts" class="px-6 py-3 rounded bg-[var(--accent)] text-white shadow">Browse Posts</a>
+        <a href="#newsletter" class="px-6 py-3 rounded border border-white/20">Subscribe</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER NAV (like Projects: categories/tags) -->
+  <section class="py-8 bg-white">
+    <div class="max-w-6x1 mx-auto px-6">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="flex flex-wrap gap-3 items-center">
+          <button class="filter-btn px-4 py-2 rounded bg-[var(--accent)] text-white" data-filter="all">All</button>
+          <button class="filter-btn px-4 py-2 rounded bg-white border" data-filter="interiors">Interiors</button>
+          <button class="filter-btn px-4 py-2 rounded bg-white border" data-filter="projects">Projects</button>
+          <button class="filter-btn px-4 py-2 rounded bg-white border" data-filter="tips">Tips</button>
+          <button class="filter-btn px-4 py-2 rounded bg-white border" data-filter="materials">Materials</button>
+          <button class="filter-btn px-4 py-2 rounded bg-white border" data-filter="trends">Trends</button>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <label for="search" class="sr-only">Search blog</label>
+          <input id="search" type="search" placeholder="Search posts..." class="border rounded px-3 py-2 text-sm" />
+          <select id="sort" class="border rounded px-3 py-2 text-sm">
+            <option value="recent">Most recent</option>
+            <option value="popular">Most popular</option>
+            <option value="alpha">A → Z</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSTS GRID (mimics Projects layout: cards, hover, modal quick view) -->
+  <main id="posts" class="py-12">
+    <div class="max-w-6x1 mx-auto px-6">
+      <div id="postsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- 30 blog cards, each explicitly provided — content related to projects -->
+        <!-- Card 1 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="projects" data-title="Rooftop Garden Nook — Project Case Study" data-date="2024-11-18" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80" alt="Rooftop garden nook" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between items-center">
+                <div class="text-sm">Projects • Nov 18, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm" aria-label="View Rooftop Garden Nook">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Rooftop Garden Nook — Project Case Study</h3>
+            <p class="text-sm text-gray-600 mt-2">A compact rooftop transformed with planters, seating and layered lighting to create an intimate evening space.</p>
+            <div class="mt-3 text-xs text-gray-400">Project • Rooftop • Bangalore</div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="interiors" data-title="Layering Textures for Depth" data-date="2024-07-03" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Interiors • Jul 03, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Layering Textures for Depth</h3>
+            <p class="text-sm text-gray-600 mt-2">Mixing textiles, woods and metals to create tactile, layered interiors without clutter.</p>
+            <div class="mt-3 text-xs text-gray-400">Guide • Styling</div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="tips" data-title="Pick the Perfect Rug — Size & Placement" data-date="2024-09-20" tabindex="0">
+          <div class="relative">
+            <img src="https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/master/pass/modernist-decor-inspiration-01.jpg" alt="Rug selection" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Tips • Sep 20, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Pick the Perfect Rug — Size & Placement</h3>
+            <p class="text-sm text-gray-600 mt-2">A quick guide to choosing rug size and positioning so your furniture feels anchored and cohesive.</p>
+            <div class="mt-3 text-xs text-gray-400">Tips • Flooring</div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="projects" data-title="Cozy Bedroom Refresh — Before & After" data-date="2024-08-12" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=1200&q=80" alt="Bedroom refresh" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Projects • Aug 12, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Cozy Bedroom Refresh — Before & After</h3>
+            <p class="text-sm text-gray-600 mt-2">From dated to delightful — how we layered textiles and lighting to create a warm master suite.</p>
+            <div class="mt-3 text-xs text-gray-400">Case Study • Bedroom</div>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="materials" data-title="Choosing Wood for Cabinets — Guide" data-date="2024-10-05" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" alt="Wood materials" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Materials • Oct 05, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Choosing Wood for Cabinets — Guide</h3>
+            <p class="text-sm text-gray-600 mt-2">A practical comparison of hardwoods, veneers and engineered options for cabinets and joinery.</p>
+            <div class="mt-3 text-xs text-gray-400">Materials • Cabinets</div>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="trends" data-title="2025 Color Palette Picks" data-date="2025-01-10" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=1200&q=80" alt="Color palettes 2025" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Trends • Jan 10, 2025</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">2025 Color Palette Picks</h3>
+            <p class="text-sm text-gray-600 mt-2">Warm neutrals, soft greens and grounding terracottas — our color trends for comfortable interiors this year.</p>
+            <div class="mt-3 text-xs text-gray-400">Trends • Color</div>
+          </div>
+        </article>
+
+        <!-- Card 7 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="tips" data-title="Lighting Layers: Ambient, Task & Accent" data-date="2024-03-30" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80" alt="Layered lighting" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Tips • Mar 30, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Lighting Layers: Ambient, Task & Accent</h3>
+            <p class="text-sm text-gray-600 mt-2">How to build three layers of light so rooms perform beautifully for different activities.</p>
+            <div class="mt-3 text-xs text-gray-400">Lighting • How-to</div>
+          </div>
+        </article>
+
+        <!-- Card 8 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="projects" data-title="Patio Lounge — Outdoor Project" data-date="2021-05-12" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Projects • May 12, 2021</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Patio Lounge — Outdoor Project</h3>
+            <p class="text-sm text-gray-600 mt-2">Weatherproof textiles, layered rugs and ambient heating make the patio cozy year-round.</p>
+            <div class="mt-3 text-xs text-gray-400">Outdoor • Patio</div>
+          </div>
+        </article>
+
+        <!-- Card 9 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="materials" data-title="Sustainable Fabrics We Love" data-date="2024-11-04" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Materials • Nov 04, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Sustainable Fabrics We Love</h3>
+            <p class="text-sm text-gray-600 mt-2">Low-impact fabrics that wear well and align with thoughtful design choices.</p>
+            <div class="mt-3 text-xs text-gray-400">Products • Fabrics</div>
+          </div>
+        </article>
+
+        <!-- Card 10 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="interiors" data-title="How to Make a Small Apartment Feel Spacious" data-date="2023-09-21" tabindex="0">
+          <div class="relative">
+           <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Interiors • Sep 21, 2023</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">How to Make a Small Apartment Feel Spacious</h3>
+            <p class="text-sm text-gray-600 mt-2">Clever layouts, consistent palettes and multi-functional furniture help small spaces breathe.</p>
+            <div class="mt-3 text-xs text-gray-400">Interiors • Space</div>
+          </div>
+        </article>
+
+        <!-- Card 11 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="projects" data-title="Minimal Kitchen Remodel — Case Study" data-date="2024-02-18" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Projects • Feb 18, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Minimal Kitchen Remodel — Case Study</h3>
+            <p class="text-sm text-gray-600 mt-2">A clean palette and clever storage transformed a congested kitchen into a calm, functional heart of the home.</p>
+            <div class="mt-3 text-xs text-gray-400">Kitchen • Remodel</div>
+          </div>
+        </article>
+
+        <!-- Card 12 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="tips" data-title="Declutter: A Room-by-Room Guide" data-date="2023-12-10" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Tips • Dec 10, 2023</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Declutter: A Room-by-Room Guide</h3>
+            <p class="text-sm text-gray-600 mt-2">Practical steps to declutter each room so your home feels lighter and more functional.</p>
+            <div class="mt-3 text-xs text-gray-400">Tips • Home</div>
+          </div>
+        </article>
+
+        <!-- Card 13 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="materials" data-title="Backsplash Ideas: Tiles & Texture" data-date="2024-06-01" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Materials • Jun 01, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Backsplash Ideas: Tiles & Texture</h3>
+            <p class="text-sm text-gray-600 mt-2">From subway tiles to textured stone — make the backsplash a focal point with material and grout choices.</p>
+            <div class="mt-3 text-xs text-gray-400">Kitchen • Detail</div>
+          </div>
+        </article>
+
+        <!-- Card 14 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="trends" data-title="Decor Hacks for Urban Living" data-date="2023-08-02" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Trends • Aug 02, 2023</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Decor Hacks for Urban Living</h3>
+            <p class="text-sm text-gray-600 mt-2">Small changes with big impact — vertical storage, fold-away furniture and dual-purpose pieces.</p>
+            <div class="mt-3 text-xs text-gray-400">Urban • Tips</div>
+          </div>
+        </article>
+
+        <!-- Card 15 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="projects" data-title="Heritage Living — Sensitive Renovation" data-date="2018-05-21" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Projects • May 21, 2018</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Heritage Living — Sensitive Renovation</h3>
+            <p class="text-sm text-gray-600 mt-2">Preserving original features while introducing modern comforts — a thoughtful restoration case study.</p>
+            <div class="mt-3 text-xs text-gray-400">Case Study • Renovation</div>
+          </div>
+        </article>
+
+        <!-- Card 16 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="interiors" data-title="Mixing Old & New: Practical Approach" data-date="2024-04-16" tabindex="0">
+          <div class="relative">
+           <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Interiors • Apr 16, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Mixing Old & New: Practical Approach</h3>
+            <p class="text-sm text-gray-600 mt-2">How to pair vintage finds with modern pieces so the overall scheme reads cohesive and intentional.</p>
+            <div class="mt-3 text-xs text-gray-400">Styling • Interiors</div>
+          </div>
+        </article>
+
+        <!-- Card 17 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="products" data-title="Small Appliances That Make Life Easier" data-date="2023-04-22" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Products • Apr 22, 2023</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Small Appliances That Make Life Easier</h3>
+            <p class="text-sm text-gray-600 mt-2">Compact, efficient appliances we recommend for apartments and small kitchens.</p>
+            <div class="mt-3 text-xs text-gray-400">Products • Appliances</div>
+          </div>
+        </article>
+
+        <!-- Card 18 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="tips" data-title="A Simple Guide to Wall Art" data-date="2022-09-07" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Tips • Sep 07, 2022</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">A Simple Guide to Wall Art</h3>
+            <p class="text-sm text-gray-600 mt-2">Scale, hang height and grouping — get art to sit perfectly on your wall every time with these simple rules.</p>
+            <div class="mt-3 text-xs text-gray-400">Styling • Art</div>
+          </div>
+        </article>
+
+        <!-- Card 19 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="projects" data-title="Deck & Pergola — Outdoor Entertaining" data-date="2022-05-05" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Projects • May 05, 2022</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Deck & Pergola — Outdoor Entertaining</h3>
+            <p class="text-sm text-gray-600 mt-2">String lights, modular seating and durable decking — tips for designing an inviting outdoor dining area.</p>
+            <div class="mt-3 text-xs text-gray-400">Outdoor • Entertaining</div>
+          </div>
+        </article>
+
+        <!-- Card 20 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="interiors" data-title="Neutral Family Room Refresh" data-date="2022-11-22" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Interiors • Nov 22, 2022</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Neutral Family Room Refresh</h3>
+            <p class="text-sm text-gray-600 mt-2">Durable fabrics, clever storage and cozy seating — family-first design that still looks polished.</p>
+            <div class="mt-3 text-xs text-gray-400">Family • Living</div>
+          </div>
+        </article>
+
+        <!-- Card 21 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="materials" data-title="Butcher Block vs Quartz Countertops" data-date="2021-03-14" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Materials • Mar 14, 2021</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Butcher Block vs Quartz Countertops</h3>
+            <p class="text-sm text-gray-600 mt-2">Material pros and cons for kitchens — warmth vs durability considerations for real homes.</p>
+            <div class="mt-3 text-xs text-gray-400">Kitchen • Materials</div>
+          </div>
+        </article>
+
+        <!-- Card 22 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="trends" data-title="Timeless Decor Ideas That Last" data-date="2020-10-07" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Trends • Oct 07, 2020</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Timeless Decor Ideas That Last</h3>
+            <p class="text-sm text-gray-600 mt-2">Design choices that age gracefully — invest in good bones and swap trends with accessories.</p>
+            <div class="mt-3 text-xs text-gray-400">Style • Longevity</div>
+          </div>
+        </article>
+
+        <!-- Card 23 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="tips" data-title="Window Treatments: Curtains or Blinds?" data-date="2024-01-28" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Tips • Jan 28, 2024</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Window Treatments: Curtains or Blinds?</h3>
+            <p class="text-sm text-gray-600 mt-2">Privacy, insulation and style — how to choose the right treatment for your windows and room use.</p>
+            <div class="mt-3 text-xs text-gray-400">Windows • Tips</div>
+          </div>
+        </article>
+
+        <!-- Card 24 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="projects" data-title="Client Meeting Space — Office Project" data-date="2019-09-12" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Projects • Sep 12, 2019</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Client Meeting Space — Office Project</h3>
+            <p class="text-sm text-gray-600 mt-2">A comfortable meeting space designed for conversation, acoustics and client presentations.</p>
+            <div class="mt-3 text-xs text-gray-400">Office • Case Study</div>
+          </div>
+        </article>
+
+        <!-- Card 25 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="materials" data-title="Tile Patterns That Pop" data-date="2022-03-18" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Materials • Mar 18, 2022</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Tile Patterns That Pop</h3>
+            <p class="text-sm text-gray-600 mt-2">Ways to use pattern and grout color to make tiles feel considered and bespoke.</p>
+            <div class="mt-3 text-xs text-gray-400">Detail • Tiles</div>
+          </div>
+        </article>
+
+        <!-- Card 26 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="trends" data-title="Curated Shelves — Styling Tips" data-date="2021-07-09" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Trends • Jul 09, 2021</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Curated Shelves — Styling Tips</h3>
+            <p class="text-sm text-gray-600 mt-2">How to group objects, balance scale and add color to shelving without overstuffing.</p>
+            <div class="mt-3 text-xs text-gray-400">Styling • Shelves</div>
+          </div>
+        </article>
+
+        <!-- Card 27 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="products" data-title="Our Favorite Lighting Fixtures" data-date="2023-02-02" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Products • Feb 02, 2023</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Our Favorite Lighting Fixtures</h3>
+            <p class="text-sm text-gray-600 mt-2">Pendant, floor and wall lights we rely on to create mood and functionality in projects.</p>
+            <div class="mt-3 text-xs text-gray-400">Products • Lighting</div>
+          </div>
+        </article>
+
+        <!-- Card 28 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="tips" data-title="How to Create a Cozy Reading Nook" data-date="2022-12-05" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Tips • Dec 05, 2022</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">How to Create a Cozy Reading Nook</h3>
+            <p class="text-sm text-gray-600 mt-2">Small footprint, big comfort: seating, lighting and shelf ideas for a dedicated reading corner.</p>
+            <div class="mt-3 text-xs text-gray-400">Comfort • Nook</div>
+          </div>
+        </article>
+
+        <!-- Card 29 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="materials" data-title="Finishes That Age Well" data-date="2020-01-11" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Materials • Jan 11, 2020</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Finishes That Age Well</h3>
+            <p class="text-sm text-gray-600 mt-2">Selecting surfaces that patina gracefully vs those that show wear — a guide for longevity.</p>
+            <div class="mt-3 text-xs text-gray-400">Durability • Materials</div>
+          </div>
+        </article>
+
+        <!-- Card 30 -->
+        <article class="post-card reveal card-border bg-white rounded-xl overflow-hidden shadow-sm zoom-on-hover" data-category="projects" data-title="Design Review Room — Studio Project" data-date="2022-04-12" tabindex="0">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80" alt="Layering textures" class="w-full h-56 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 overlay-fade flex items-end">
+              <div class="p-4 w-full text-white flex justify-between">
+                <div class="text-sm">Projects • Apr 12, 2022</div>
+                <button class="view-btn bg-[var(--accent)] px-3 py-2 rounded text-sm">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-lg">Design Review Room — Studio Project</h3>
+            <p class="text-sm text-gray-600 mt-2">A compact display and review space for clients to interact with samples and mockups.</p>
+            <div class="mt-3 text-xs text-gray-400">Studio • Project</div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Load more -->
+      <div class="mt-10 text-center">
+        <button id="loadMore" class="px-6 py-3 bg-white border rounded shadow hover:bg-gray-50">Load More Posts</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- QUICK VIEW MODAL (article preview) -->
+  <div id="quickModal" class="modal-root" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-panel p-6">
+      <div class="flex flex-col md:flex-row gap-6">
+        <div class="md:w-2/3">
+          <img id="modalImg" src="" alt="" class="w-full h-64 object-cover rounded" />
+          <h2 id="modalTitle" class="mt-4 text-2xl font-heading"></h2>
+          <div id="modalMeta" class="text-sm text-gray-500 mt-1"></div>
+          <div id="modalBody" class="mt-4 text-gray-700 leading-relaxed"></div>
+        </div>
+        <aside class="md:w-1/3">
+          <button id="modalClose" class="ml-auto text-gray-600">✕</button>
+          <div class="mt-2 bg-gray-50 p-4 rounded">
+            <h4 class="font-semibold">Quick Info</h4>
+            <div id="modalQuick" class="text-sm text-gray-600 mt-2"></div>
+            <div class="mt-4">
+              <a href="#contact" class="inline-block px-4 py-2 rounded bg-[var(--accent)] text-white">Start a Project</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER CTA -->
+  <section id="newsletter" class="py-16 bg-gradient-to-r from-white to-white/90">
+    <div class="max-w-6x1 mx-auto px-6">
+      <div class="bg-[var(--muted)] rounded-xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-6">
+        <div class="md:w-2/3">
+          <h3 class="text-2xl font-heading">Get our monthly design notes</h3>
+          <p class="mt-2 text-gray-600">Project stories, product picks and short tips delivered to your inbox.</p>
+        </div>
+        <form id="newsletterForm" class="md:w-1/3 flex gap-2">
+          <label for="nlEmail" class="sr-only">Email</label>
+          <input id="nlEmail" type="email" required class="w-full border rounded px-3 py-2" placeholder="you@email.com" />
+          <button type="submit" class="px-4 py-2 rounded bg-[var(--accent)] text-white">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (Projects style) -->
+  <footer class="bg-white border-t mt-12">
+    <div class="max-w-6x1 mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div>
+        <h3 class="font-semibold">Redes Home Decor</h3>
+        <p class="text-sm text-gray-600 mt-2">Handcrafted furniture & curated interiors — Banguluru.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold">Projects</h4>
+        <ul class="mt-2 text-sm space-y-2 text-gray-600">
+          <li><a href="projects.html">All Projects</a></li>
+          <li><a href="projects.html#residential">Residential</a></li>
+          <li><a href="projects.html#commercial">Commercial</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold">Company</h4>
+        <ul class="mt-2 text-sm space-y-2 text-gray-600">
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="careers.html">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold">Contact</h4>
+        <div class="text-sm text-gray-600 mt-2">
+          <div>Banguluru, India</div>
+          <div class="mt-1">Phone: <a href="tel:+919676659153" class="text-[var(--accent)]">+91 96766 59153</a></div>
+          <div class="mt-1">Email: <a href="mailto:info@redescreation.in" class="text-[var(--accent)]">info@redescreation.in</a></div>
+        </div>
+        <div class="mt-4 flex gap-3 text-sm">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Twitter">TW</a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t">
+      <div class="max-w-6x1 mx-auto px-6 py-4 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center">
+        <div>© <span id="year"></span> Redes Home Decor. All rights reserved.</div>
+        <div class="mt-2 md:mt-0">Built with care — <a href="https://www.redescreation.in" class="text-[var(--accent)]">redescreation.in</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // helper selectors
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile menu
+    const mobileToggle = $('#mobileToggle');
+    const mobileMenu = $('#mobileMenu');
+    mobileToggle.addEventListener('click', () => {
+      const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+      mobileToggle.setAttribute('aria-expanded', String(!expanded));
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+
+    // reveal on scroll
+    const revealEls = $$('.reveal');
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12});
+    revealEls.forEach(el => io.observe(el));
+
+    // Filtering logic
+    const filterBtns = $$('.filter-btn');
+    let activeFilter = 'all';
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => { b.classList.remove('bg-[var(--accent)]','text-white'); b.classList.add('bg-white'); });
+        btn.classList.add('bg-[var(--accent)]','text-white');
+        activeFilter = btn.dataset.filter || 'all';
+        applyFilter();
+      });
+    });
+
+    // Search & sort
+    const searchInput = $('#search');
+    const sortSelect = $('#sort');
+    searchInput.addEventListener('input', debounce(applyFilter, 200));
+    sortSelect.addEventListener('change', applyFilter);
+
+    function applyFilter(){
+      const q = (searchInput.value || '').trim().toLowerCase();
+      const sort = sortSelect.value;
+      const posts = $$('.post-card');
+      let visible = [];
+
+      posts.forEach(p => {
+        const title = (p.dataset.title || '').toLowerCase();
+        const cat = (p.dataset.category || '').toLowerCase();
+        const date = p.dataset.date || '';
+        const matchesFilter = (activeFilter === 'all') || (cat === activeFilter);
+        const matchesQuery = q === '' || title.includes(q) || p.innerText.toLowerCase().includes(q);
+        if (matchesFilter && matchesQuery) {
+          p.style.display = '';
+          visible.push(p);
+        } else {
+          p.style.display = 'none';
+        }
+      });
+
+      // sorting
+      if (sort === 'alpha') {
+        visible.sort((a,b) => (a.dataset.title || '').localeCompare(b.dataset.title || ''));
+      } else if (sort === 'recent') {
+        visible.sort((a,b) => new Date(b.dataset.date || 0) - new Date(a.dataset.date || 0));
+      } else {
+        // popular — keep DOM order
+      }
+
+      // reflow
+      const grid = $('#postsGrid');
+      visible.forEach(v => grid.appendChild(v));
+    }
+
+    // debounce
+    function debounce(fn, wait=200){ let t; return function(...a){ clearTimeout(t); t=setTimeout(()=>fn.apply(this,a), wait); }; }
+
+    // Quick view modal
+    const quickModal = $('#quickModal');
+    const modalImg = $('#modalImg');
+    const modalTitle = $('#modalTitle');
+    const modalMeta = $('#modalMeta');
+    const modalBody = $('#modalBody');
+    const modalQuick = $('#modalQuick');
+    const modalClose = $('#modalClose');
+
+    // Build a small excerpt map for demo; in real app you'd fetch full post
+    function buildModalContent(card){
+      const title = card.dataset.title || card.querySelector('h3')?.innerText || 'Article';
+      const date = card.dataset.date || '';
+      const cat = card.dataset.category || '';
+      const img = card.querySelector('img')?.src || '';
+      const excerpt = card.querySelector('p')?.innerText || '';
+      // small expanded body demo
+      const body = `<p>${excerpt}</p><p class="mt-4">Read the full story in the article — full case study, photos and notes on materials and process. We include the brief, design intent, challenges and final outcomes with furniture & finishes list.</p>`;
+      return { title, date, cat, img, body, quick: `${cat} • ${date}` };
+    }
+
+    // Attach view buttons and card click
+    $$('.view-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = e.target.closest('.post-card');
+        openQuickView(card);
+      });
+    });
+
+    $$('.post-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // if clicked on button inside, skip (already handled)
+        if (e.target.closest('.view-btn')) return;
+        openQuickView(card);
+      });
+      // keyboard open on Enter
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') openQuickView(card);
+      });
+    });
+
+    function openQuickView(card){
+      if(!card) return;
+      const data = buildModalContent(card);
+      modalImg.src = data.img;
+      modalImg.alt = data.title;
+      modalTitle.textContent = data.title;
+      modalMeta.textContent = data.quick;
+      modalBody.innerHTML = data.body;
+      modalQuick.textContent = `Category: ${data.cat} • Published: ${data.date}`;
+      quickModal.classList.add('show');
+      quickModal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    quickModal.addEventListener('click', (e) => { if (e.target === quickModal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && quickModal.classList.contains('show')) closeModal(); });
+
+    function closeModal(){
+      quickModal.classList.remove('show');
+      quickModal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    // Load more posts: clone initial posts for demo (keeps page length long)
+    $('#loadMore').addEventListener('click', () => {
+      const grid = $('#postsGrid');
+      const existing = $$('.post-card');
+      const clones = existing.slice(0,6).map((c,i) => {
+        const clone = c.cloneNode(true);
+        // slightly tweak title so user knows these are more
+        const h = clone.querySelector('h3');
+        if (h) h.textContent = h.textContent + ' (More)';
+        grid.appendChild(clone);
+        // attach events for the cloned items
+        clone.addEventListener('click', () => openQuickView(clone));
+        const vb = clone.querySelector('.view-btn');
+        if (vb) vb.addEventListener('click', (e) => { e.stopPropagation(); openQuickView(clone); });
+        revealOnNew(clone);
+        return clone;
+      });
+      if (clones.length) clones[0].scrollIntoView({behavior:'smooth', block:'center'});
+    });
+
+    // ensure reveals work for clones
+    function revealOnNew(el){
+      el.classList.add('reveal');
+      io.observe(el);
+    }
+
+    // Newsletter demo
+    $('#newsletterForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = $('#nlEmail').value.trim();
+      if (!email) { alert('Enter a valid email'); return; }
+      alert('Thanks! Subscribed (demo).');
+      $('#nlEmail').value = '';
+    });
+
+    // simple keyboard nav for filters using arrow keys
+    let filterIndex = 0;
+    document.addEventListener('keydown', (e) => {
+      if (['ArrowLeft','ArrowRight'].includes(e.key)) {
+        const btns = $$('.filter-btn');
+        if (!btns.length) return;
+        if (e.key === 'ArrowRight') filterIndex = Math.min(btns.length-1, filterIndex+1);
+        if (e.key === 'ArrowLeft') filterIndex = Math.max(0, filterIndex-1);
+        btns[filterIndex].focus();
+        btns[filterIndex].click();
+      }
+    });
+
+    // Initial apply to show correct items and order
+    applyFilter();
+
+  </script>
+</body>
+</html> 
